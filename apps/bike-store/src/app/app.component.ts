@@ -17,9 +17,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.ping('http://localhost:3000/products');
-    interval(1000).subscribe((val) => {
-      val % 5 === 0 ? this.serviceStatus = true : this.serviceStatus = false
-    });
+    // interval(1000).subscribe((val) => {
+    //   val % 5 === 0 ? this.serviceStatus = true : this.serviceStatus = false
+    // });
   }
 
   private ping(target: string): void {

@@ -15,4 +15,8 @@
   </mat-card-content>
 </mat-card>
 
-<div>Service status <span [ngClass]="{'green': serviceStatus, 'red': !serviceStatus}">{{serviceStatus}}</span></div>
+<mat-card>
+<div>Service status>
+      <span [ngClass]="{'green': serviceStatus, 'red': !serviceStatus}">{{serviceStatus}}</span>
+</div>
+</mat-card>
