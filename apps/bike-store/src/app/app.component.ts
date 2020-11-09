@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { interval } from 'rxjs';
+// import { interval } from 'rxjs';
 
 @Component({
   selector: 'stores-root',
@@ -8,6 +8,8 @@ import { interval } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+
+  title = 'Bike Store';
 
   serviceStatus = false;
 
