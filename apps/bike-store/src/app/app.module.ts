@@ -38,7 +38,11 @@ import { WelcomeComponent } from './welcome';
     EffectsModule.forRoot([]),
     HeaderModule,
     AppRoutingModule,
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument({
+      name: 'Bike Store',
+      maxAge: 25,
+      logOnly: environment.production
+    }) : [],
   ],
   declarations: [
     AppComponent,
