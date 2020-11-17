@@ -7,7 +7,7 @@ import { getShowProductCode, getCurrentProduct } from '../state/product.selector
 import * as ProductActions from '../state/product.actions';
 
 @Component({
-  selector: 'stores-product-list',
+  selector: 'stores-product-list-component',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
