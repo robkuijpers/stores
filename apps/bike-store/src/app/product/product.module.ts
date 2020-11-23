@@ -4,6 +4,8 @@ import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { ProductListComponent } from './product-list/product-list.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 import { productReducer } from './state/product.reducer';
 
 const productRoutes: Routes = [
@@ -17,7 +19,9 @@ const productRoutes: Routes = [
         StoreModule.forFeature('products', productReducer)  // create the products slice in the store
     ],
     declarations: [
-        ProductListComponent
+        ProductListComponent,
+        ProductEditComponent,
+        ProductPageComponent,
     ],
     exports: [],
     providers: [],

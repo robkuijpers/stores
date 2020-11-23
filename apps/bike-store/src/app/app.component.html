@@ -1,24 +1,8 @@
 <stores-header></stores-header>
-
-<!-- <mat-card>
-  <mat-card-title>Login</mat-card-title>
-  <mat-card-content>
-      <form fxLayout="column" fxLayoutAlign="center none">
-          <mat-form-field>
-              <input matInput placeholder="username" type="text" #username>
-          </mat-form-field>
-          <mat-form-field>
-              <input matInput placeholder="password" type="text" #password>
-          </mat-form-field>
-      </form>
-      <button mat-raised-button >login</button>
-  </mat-card-content>
-</mat-card>
-
-<mat-card>
-    <mat-card-content>
-      <div>Status<span [ngClass]="{'green': serviceStatus, 'red': !serviceStatus}">{{serviceStatus}}</span></div>
-    </mat-card-content>
-</mat-card> -->
-
 <router-outlet></router-outlet>
+
+<!--
+<a class="item" *ngIf="!isAuthenticated" (click)="login()">Login</a>
+<a id="messages-button" class="item" *ngIf="isAuthenticated" routerLink="/messages"><i aria-hidden="true" class="mail outline icon"></i>Messages</a>
+<a id="profile-button" class="item" *ngIf="isAuthenticated" routerLink="/profile">Profile</a>
+<a id="logout-button" class="item" *ngIf="isAuthenticated" (click)="logout()">Logout</a> -->

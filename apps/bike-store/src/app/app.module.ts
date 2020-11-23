@@ -15,7 +15,16 @@ import { ProductData } from './product/services';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome';
-
+import { MainComponent } from './main';
+import { LoginComponent } from './login';
+import { PageNotFoundComponent } from './page-not-found';
+import oktaConfig from './okta.config';
+import {
+  OKTA_CONFIG,
+  OktaAuthGuard,
+  OktaAuthModule,
+  OktaCallbackComponent,
+} from '@okta/okta-angular';
 @NgModule({
   imports: [
     BrowserModule,
@@ -37,6 +46,7 @@ import { WelcomeComponent } from './welcome';
     ),
     EffectsModule.forRoot([]),
     HeaderModule,
+    OktaAuthModule,
     AppRoutingModule,
     !environment.production ? StoreDevtoolsModule.instrument({
       name: 'Bike Store',
@@ -46,11 +56,17 @@ import { WelcomeComponent } from './welcome';
   ],
   declarations: [
     AppComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    MainComponent,
+    LoginComponent,
+    PageNotFoundComponent,
   ],
   exports: [
+    MaterialModule,
   ],
-  providers: [],
+  providers: [
+    { provide: OKTA_CONFIG, useValue: oktaConfig },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
