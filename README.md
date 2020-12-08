@@ -95,9 +95,10 @@ Teams using Nx gain the advantage of building full-stack applications with their
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
 
-
 ===================
 
 https://www.youtube.com/watch?v=cXOkmOy-8dk
 
 https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/6-angular-material
+
+https://dev.to/beeman/series/7589

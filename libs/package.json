@@ -1,4 +1,9 @@
 {
-    "name": "libs",
-    "version": "1.0.0"
+  "name": "libs",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "echo test apps"
+  }
 }

@@ -8,6 +8,8 @@
     "nx": "nx",
     "start": "ng serve",
     "build": "ng build",
+    "start:api": "node dist/apps/api/main.js",
+    "build:api": "nx build api --prod",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
@@ -42,7 +44,9 @@
     "@angular/platform-browser-dynamic": "^10.1.0",
     "@angular/router": "^10.1.0",
     "@nestjs/common": "^7.0.0",
+    "@nestjs/config": "^0.6.1",
     "@nestjs/core": "^7.0.0",
+    "@nestjs/graphql": "^7.9.1",
     "@nestjs/platform-express": "^7.0.0",
     "@ngrx/effects": "10.0.0",
     "@ngrx/entity": "10.0.0",
@@ -51,6 +55,10 @@
     "@nrwl/angular": "10.4.4",
     "@okta/okta-angular": "^3.0.1",
     "angular-in-memory-web-api": "^0.11.0",
+    "apollo-server-express": "^2.19.0",
+    "graphql": "^15.4.0",
+    "graphql-tools": "^7.0.2",
+    "joi": "^17.3.0",
     "nx": "^10.4.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.5",
@@ -106,7 +114,6 @@
   },
   "workspaces": [
     "apps",
-    "libs",
-    "server"
+    "libs"
   ]
 }
