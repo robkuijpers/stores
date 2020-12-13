@@ -1,3 +1,20 @@
-<mat-toolbar color='primary'>
-    <span>Bike Store</span>
+<mat-toolbar color="primary">
+  <span>Bike Store</span>
+  <span class="spacer"></span>
+  <ng-container>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>language</mat-icon>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a mat-menu-item href="/en">English</a>
+      <a mat-menu-item href="/nl">Dutch</a>
+    </mat-menu>
+  </ng-container>
+  <div *ngIf="isAuthenticated">
+    <a mat-raised-button href="" (click)="login()">Login</a>
+  </div>
+  <div *ngIf="!isAuthenticated">
+    <button mat-raised-button href="" (click)="logout()">Logout</button>
+  </div>
 </mat-toolbar>
