@@ -102,3 +102,21 @@ https://www.youtube.com/watch?v=cXOkmOy-8dk
 https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/6-angular-material
 
 https://dev.to/beeman/series/7589
+
+# My Notes
+
+## Docker
+
+docker ps
+docker ps -a
+docker build -t stores
+docker run -it --rm -d -p 8080:80 --name stores stores
+docker stop <containerid> | <name>
+
+https://medium.com/adrixus/beginners-guide-to-nginx-configuration-files-527fcd6d5efd
+https://kiltedcode.github.io/posts/2017/angular-docker-nginx.html
+
+python -m http.server
+
+npm install http-server -g
+http-server dist/[your-project-name]
