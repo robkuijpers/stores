@@ -120,3 +120,27 @@ python -m http.server
 
 npm install http-server -g
 http-server dist/[your-project-name]
+
+or
+
+python -m SimpleHTTPServer 8000
+
+## GraphQL
+
+http://localhost:3000/api
+http://localhost:3000/graphql
+
+## ngx-translate
+
+https://github.com/ngx-translate/core#installation
+https://stackblitz.com/github/ngx-translate/example?file=src%2Fapp%2Fapp.component.ts
+
+    <div>
+      <h2>{{ 'HOME.TITLE' | translate }}</h2>
+      <label>
+        {{ 'HOME.SELECT' | translate }}
+        <select #langSelect (change)="translate.use(langSelect.value)">
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+        </select>
+      </label>
+    </div>

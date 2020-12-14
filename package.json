@@ -2,6 +2,7 @@
   "name": "stores",
   "version": "0.0.0",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
@@ -30,10 +31,9 @@
     "help": "nx help",
     "server": "ts-node ./server/server.ts"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^10.2.2",
-    "@angular/cdk": "^11.0.2",
+    "@angular/cdk": "^11.0.3",
     "@angular/common": "^10.1.0",
     "@angular/compiler": "^10.1.0",
     "@angular/core": "^10.1.0",
@@ -52,6 +52,8 @@
     "@ngrx/entity": "10.0.0",
     "@ngrx/router-store": "10.0.0",
     "@ngrx/store": "10.0.0",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "@nrwl/angular": "10.4.4",
     "@okta/okta-angular": "^3.0.1",
     "angular-in-memory-web-api": "^0.11.0",

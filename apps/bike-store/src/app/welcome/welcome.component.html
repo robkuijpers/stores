@@ -1,20 +1,19 @@
 <h1>{{ title }}</h1>
-
+{{ 'HOME.TITLE' | translate }}
 <mat-card *ngIf="!isAuthenticated">
-    <mat-card-content>
-        <a routerLink="/login">Login</a>
-    </mat-card-content>
+  <mat-card-content>
+    <a routerLink="/login">Login</a>
+  </mat-card-content>
 </mat-card>
 
 <mat-card *ngIf="isAuthenticated">
-    <mat-card-content>
-        <button (click)="logout()">Logout</button>
-    </mat-card-content>
+  <mat-card-content>
+    <button (click)="logout()">Logout</button>
+  </mat-card-content>
 </mat-card>
 
 <mat-card *ngIf="isAuthenticated">
-    <mat-card-content>
-        <button routerLink="/product">Products</button>
-    </mat-card-content>
+  <mat-card-content>
+    <button routerLink="/product">Products</button>
+  </mat-card-content>
 </mat-card>
-
