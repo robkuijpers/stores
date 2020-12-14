@@ -11,9 +11,7 @@ server.use(jsonServer.bodyParser);
 server.post('/login', (req, res, next) => {
   const users = readUsers();
 
-  const user = users.filter(
-    u => u.username === req.body.username && u.password === req.body.password
-  )[0];
+  const user = users.filter((u) => u.username === req.body.username && u.password === req.body.password)[0];
 
   if (user) {
     res.send({ ...formatUser(user), token: checkIfAdmin(user) });
@@ -24,12 +22,12 @@ server.post('/login', (req, res, next) => {
 
 server.post('/register', (req, res) => {
   const users = readUsers();
-  const user = users.filter(u => u.username === req.body.username)[0];
+  const user = users.filter((u) => u.username === req.body.username)[0];
 
   if (user === undefined || user === null) {
     res.send({
       ...formatUser(req.body),
-      token: checkIfAdmin(req.body)
+      token: checkIfAdmin(req.body),
     });
     db.users.push(req.body);
   } else {
@@ -52,16 +50,12 @@ server.listen(3000, () => {
 
 function formatUser(user) {
   delete user.password;
-  user.role = user.username === 'admin'
-    ? 'admin'
-    : 'user';
+  user.role = user.username === 'admin' ? 'admin' : 'user';
   return user;
 }
 
 function checkIfAdmin(user, bypassToken = false) {
-  return user.username === 'admin' || bypassToken === true
-    ? 'admin-token'
-    : 'user-token';
+  return user.username === 'admin' || bypassToken === true ? 'admin-token' : 'user-token';
 }
 
 function isAuthorized(req) {
@@ -70,6 +64,6 @@ function isAuthorized(req) {
 
 function readUsers() {
   const dbRaw = fs.readFileSync('./server/db.json');
-  const users = JSON.parse(dbRaw).users
+  const users = JSON.parse(dbRaw).users;
   return users;
 }

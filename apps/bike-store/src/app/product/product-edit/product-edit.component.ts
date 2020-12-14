@@ -14,13 +14,7 @@ export class ProductEditComponent implements OnInit {
   errorMessage = '';
   currentProduct: Product;
 
-  constructor(
-    private store: Store<State>,
-    private productService: ProductService
-  ) {}
+  constructor(private store: Store<State>, private productService: ProductService) {}
 
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 }

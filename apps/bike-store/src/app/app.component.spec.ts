@@ -28,5 +28,4 @@ describe('AppComponent', () => {
   //     'Welcome to bike-store!'
   //   );
   // });
-
 });

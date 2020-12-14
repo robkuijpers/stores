@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common'
+import { Module } from '@nestjs/common';
 
-import { CoreModule } from '@stores/core'
+import { CoreModule } from '@stores/core';
 
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [CoreModule],

@@ -1,17 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
-    templateUrl: './main.component.html',
-    styleUrls: ['./main.component.scss']
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, OnDestroy {
+  title = 'Main';
 
-    title = 'Main';
+  constructor() {}
 
-    constructor() { }
+  ngOnInit(): void {}
 
-    ngOnInit(): void { }
-
-    ngOnDestroy(): void { }
-
+  ngOnDestroy(): void {}
 }

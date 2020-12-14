@@ -18,23 +18,16 @@ export class ProductListComponent implements OnInit {
   errorMessage = '';
   currentProduct: Product;
 
-  constructor(
-    private store: Store<State>,
-    private productService: ProductService
-  ) {}
+  constructor(private store: Store<State>, private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.store.select(getCurrentProduct).subscribe(
-      currentProduct => this.currentProduct = currentProduct
-    );
+    this.store.select(getCurrentProduct).subscribe((currentProduct) => (this.currentProduct = currentProduct));
 
     this.productService.getProducts().subscribe({
       next: (products: Product[]) => (this.products = products),
       error: (err) => (this.errorMessage = err.error),
     });
-    this.store.select(getShowProductCode).subscribe(
-      showProductCode => this.displayCode = showProductCode
-    );
+    this.store.select(getShowProductCode).subscribe((showProductCode) => (this.displayCode = showProductCode));
   }
 
   newProduct(): void {
@@ -42,13 +35,10 @@ export class ProductListComponent implements OnInit {
   }
 
   productSelected(product: Product): void {
-    this.store.dispatch(ProductActions.setCurrentProduct(
-      { product }
-    ));
+    this.store.dispatch(ProductActions.setCurrentProduct({ product }));
   }
 
   checkChanged(e: Event): void {
     this.store.dispatch(ProductActions.toggleProductCode());
   }
-
 }

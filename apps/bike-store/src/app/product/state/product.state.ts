@@ -2,11 +2,11 @@ import * as AppState from '../../state/app.state';
 import { Product } from '../models';
 
 export interface State extends AppState.State {
-    products: ProductState;
+  products: ProductState;
 }
 
 export interface ProductState {
-    showProductCode: boolean;
-    currentProduct: Product;
-    products: Product[];
+  showProductCode: boolean;
+  currentProduct: Product;
+  products: Product[];
 }

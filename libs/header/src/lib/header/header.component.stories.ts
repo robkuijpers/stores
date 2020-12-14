@@ -1,15 +1,13 @@
-
 import { HeaderComponent } from './header.component';
 
 export default {
-  title: 'HeaderComponent'
-}
+  title: 'HeaderComponent',
+};
 
 export const primary = () => ({
   moduleMetadata: {
-    imports: []
+    imports: [],
   },
   component: HeaderComponent,
-  props: {
-  }
-})
+  props: {},
+});
