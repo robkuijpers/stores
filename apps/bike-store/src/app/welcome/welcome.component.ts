@@ -11,16 +11,15 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   constructor(private oktaAuth: OktaAuthService) {}
 
   ngOnInit(): void {
-    this.oktaAuth
-      .isAuthenticated()
-      .then((auth) => {
-        this.isAuthenticated = auth;
-      })
-      .catch((err) => {
-        console.log('Error');
-      });
+    // this.oktaAuth
+    //   .isAuthenticated()
+    //   .then((auth) => {
+    //     this.isAuthenticated = auth;
+    //   })
+    //   .catch((err) => {
+    //     console.log('Error');
+    //   });
 
-    // subscribe to authentication state changes
     this.oktaAuth.$authenticationState.subscribe(
       (isAuthenticated: boolean) => (this.isAuthenticated = isAuthenticated),
     );

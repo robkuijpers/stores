@@ -8,7 +8,7 @@ import { OktaAuthService } from '@okta/okta-angular';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  public isAuthenticated = false;
+  isAuthenticated = false;
 
   constructor(private oktaAuthService: OktaAuthService, private router: Router) {}
 
@@ -18,11 +18,19 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  public login(): void {
-    console.log('login');
-  }
+  async logout() {
+    const issuer = 'https://dev-1323293.okta.com/oauth2/default';
+    const redirectUri = `${window.location.origin}/welcome`;
 
-  public logout(): void {
-    console.log('logout');
+    // Read idToken before local session is cleared
+    const idToken = await this.oktaAuthService.getIdToken();
+
+    // Clear local session
+    await this.oktaAuthService.signOut();
+
+    // Clear remote session
+    window.location.href = `${issuer}/v1/logout?id_token_hint=${idToken}&post_logout_redirect_uri=${redirectUri}`;
+
+    this.router.navigate(['/']);
   }
 }

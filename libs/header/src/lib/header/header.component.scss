@@ -1,5 +1,8 @@
-// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-
 .spacer {
   flex: 1 1 auto;
+}
+
+.expanded-toolbar {
+  justify-content: space-between;
+  align-items: center;
 }

@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from '@stores/material';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [CommonModule, BrowserAnimationsModule, MaterialModule],
+  imports: [CommonModule, BrowserAnimationsModule, MaterialModule, RouterModule],
   declarations: [HeaderComponent],
   exports: [HeaderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

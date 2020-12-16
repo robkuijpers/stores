@@ -1,7 +1,5 @@
 {
-  "HOME": {
-    "HELLO": "Hallo {{value}}",
-    "TITLE": "Hallo Angular met ngx-translate !",
-    "SELECT": "Wijzig taal"
+  "welcome": {
+    "title": "Welkom"
   }
 }

@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MaterialModule } from '@stores/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +12,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { HeaderModule } from '@stores/header';
-import { ProductData } from './product/services';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome';
@@ -46,7 +44,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       },
     }),
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(ProductData),
     StoreModule.forRoot(
       {},
       {
