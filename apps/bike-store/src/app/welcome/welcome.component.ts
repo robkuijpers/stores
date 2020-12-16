@@ -5,7 +5,6 @@ import { OktaAuthService } from '@okta/okta-angular';
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
-  title = 'Welcome';
   isAuthenticated = false;
 
   constructor(private oktaAuth: OktaAuthService) {}

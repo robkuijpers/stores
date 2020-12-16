@@ -15,7 +15,6 @@ import { HeaderModule } from '@stores/header';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome';
-import { MainComponent } from './main';
 import { LoginComponent } from './login';
 import { PageNotFoundComponent } from './page-not-found';
 import oktaConfig from './okta.config';
@@ -36,7 +35,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'nl',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
@@ -68,7 +66,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         })
       : [],
   ],
-  declarations: [AppComponent, WelcomeComponent, MainComponent, LoginComponent, PageNotFoundComponent],
+  declarations: [AppComponent, WelcomeComponent, LoginComponent, PageNotFoundComponent],
   exports: [MaterialModule],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent],

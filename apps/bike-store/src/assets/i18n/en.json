@@ -1,4 +1,7 @@
 {
+  "header": {
+    "title": "Bike Store"
+  },
   "welcome": {
     "title": "Welcome"
   }
