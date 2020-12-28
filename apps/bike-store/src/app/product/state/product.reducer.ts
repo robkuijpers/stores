@@ -42,11 +42,21 @@ export const productReducer = createReducer<ProductState>(
         ...state,
         currentProduct: {
           id: 0,
-          productName: '',
-          productCode: 'New',
+          name: 'New',
+          category: '',
+          code: '',
           description: '',
-          starRating: 0,
+          rating: null,
         },
+      };
+    },
+  ),
+  on(
+    ProductActions.loadProductsSuccess,
+    (state, action): ProductState => {
+      return {
+        ...state,
+        products: action.products,
       };
     },
   ),

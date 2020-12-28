@@ -3,10 +3,11 @@
 <div *ngIf="displayCode">Code</div>
 
 <div>
-    <label>
-      <input type="checkbox"
-             (change)="checkChanged($event.target.checked)"
-             [checked]="displayCode">
-      Display Product Code
-    </label>
+  <label>
+    <input type="checkbox" (change)="checkChanged($event.target.checked)" [checked]="displayCode" />
+    Display Product Code
+  </label>
+  <div *ngFor="let product of products$ | async">
+    {{ product.name }}
+  </div>
 </div>

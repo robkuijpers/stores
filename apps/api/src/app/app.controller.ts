@@ -6,8 +6,8 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('products')
   getData() {
-    return this.appService.getData();
+    return this.appService.getProducts();
   }
 }

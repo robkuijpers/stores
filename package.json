@@ -29,7 +29,7 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "server": "ts-node ./server/server.ts"
+    "server": "ts-node ./server/server.ts --watch ./server/db.json --port 3000"
   },
   "dependencies": {
     "@angular/animations": "^10.2.2",

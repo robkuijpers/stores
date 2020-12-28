@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { Product } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 import { State } from '../state/product.state';
-import { getShowProductCode, getCurrentProduct } from '../state/product.selectors';
+import { getShowProductCode, getCurrentProduct, getProducts } from '../state/product.selectors';
 import * as ProductActions from '../state/product.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'stores-product-list',
@@ -17,10 +18,14 @@ export class ProductListComponent implements OnInit {
   displayCode = true;
   errorMessage = '';
   currentProduct: Product;
+  products$: Observable<Product[]>;
 
   constructor(private store: Store<State>, private productService: ProductService) {}
 
   ngOnInit(): void {
+    this.store.dispatch(ProductActions.loadProducts());
+    this.products$ = this.store.select(getProducts);
+
     this.store.select(getCurrentProduct).subscribe((currentProduct) => (this.currentProduct = currentProduct));
 
     this.productService.getProducts().subscribe({

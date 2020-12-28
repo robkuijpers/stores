@@ -1,6 +1,10 @@
 {
   "header": {
-    "title": "Bike Store"
+    "title": "Bike Store",
+    "login": "Login",
+    "logout": "Logout",
+    "home": "Home",
+    "products": "Products"
   },
   "welcome": {
     "title": "Welcome"

@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { Product } from '../models';
 
-export const loadProducts = createAction('[Product List Page ] Load');
-export const loadProductsSuccess = createAction('[Product API] Load Success');
+export const loadProducts = createAction('[Product API] Load');
+export const loadProductsSuccess = createAction('[Product API] Load Success', props<{ products: Product[] }>());
 export const loadProductsFailure = createAction('[Product API] Load Failure');
 
 export const toggleProductCode = createAction('[Product List Page] Toggle Product Code');

@@ -2,26 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
+import { environment } from '../../../../src/environments/environment';
 import { Product } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private productsUrl = 'api/products';
+  private baseUrl = environment.productServiceBaseUrl;
   private products: Product[];
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    if (this.products) {
-      return of(this.products);
-    }
-
-    return this.http.get<Product[]>(this.productsUrl).pipe(
+    return this.http.get<Product[]>(`${this.baseUrl}/products`).pipe(
       tap((data) => console.log(JSON.stringify(data))),
-      tap((data) => (this.products = data)),
       catchError(this.handleError),
     );
   }

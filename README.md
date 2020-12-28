@@ -135,12 +135,12 @@ http://localhost:3000/graphql
 https://github.com/ngx-translate/core#installation
 https://stackblitz.com/github/ngx-translate/example?file=src%2Fapp%2Fapp.component.ts
 
-    <div>
-      <h2>{{ 'HOME.TITLE' | translate }}</h2>
-      <label>
-        {{ 'HOME.SELECT' | translate }}
-        <select #langSelect (change)="translate.use(langSelect.value)">
-          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-        </select>
-      </label>
-    </div>
+<div>
+  <h2>{{ 'HOME.TITLE' | translate }}</h2>
+  <label>
+    {{ 'HOME.SELECT' | translate }}
+    <select #langSelect (change)="translate.use(langSelect.value)">
+      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+    </select>
+  </label>
+</div>
