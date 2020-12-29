@@ -13,11 +13,11 @@ import { AppModule } from './app/app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
+  app.enableCors();
+  app.setGlobalPrefix('api');
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
-    Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+    Logger.log('Listening at http://localhost:' + port + '/api');
     Logger.log(`Running in ${config.get('environment')} mode`);
   });
 }

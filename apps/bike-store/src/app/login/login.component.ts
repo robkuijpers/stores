@@ -1,12 +1,14 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventEmitter } from 'events';
+import { slideInOutAnimation } from '../animations';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  animations: [slideInOutAnimation],
+  //  host: { '[@slideInOutAnimation]': '' }
 })
 export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup;
