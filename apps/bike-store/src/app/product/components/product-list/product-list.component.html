@@ -1,0 +1,13 @@
+<h3>Products</h3>
+
+<div>
+  <div *ngFor="let product of products$ | async" (click)="selectProduct()">
+    <span *ngIf="showProductCode">{{ product.code }}</span>
+    <span>{{ product.name }}</span>
+  </div>
+</div>
+
+<div>
+  <label for="showProductCode">Show code</label>
+  <input type="checkbox" name="showProductCode" (click)="toggleProductCode($event)" />
+</div>

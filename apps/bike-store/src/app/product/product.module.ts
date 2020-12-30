@@ -1,25 +1,24 @@
-import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductEditComponent } from './product-edit/product-edit.component';
-import { ProductPageComponent } from './product-page/product-page.component';
-import { productReducer } from './state/product.reducer';
 import { EffectsModule } from '@ngrx/effects';
+import { ProductPageComponent } from './product-page/product-page.component';
+import { ProductListComponent } from './components';
+import { ProductDetailComponent } from './components';
+import { productReducer } from './state/product.reducer';
 import { ProductEffects } from './state/product.effects';
 
-const productRoutes: Routes = [{ path: '', component: ProductListComponent }];
+const productRoutes: Routes = [{ path: '', component: ProductPageComponent }];
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(productRoutes),
-    StoreModule.forFeature('products', productReducer), // create the products slice in the store
+    StoreModule.forFeature('products', productReducer),
     EffectsModule.forFeature([ProductEffects]),
   ],
-  declarations: [ProductListComponent, ProductEditComponent, ProductPageComponent],
+  declarations: [ProductDetailComponent, ProductListComponent, ProductPageComponent],
   exports: [],
   providers: [],
   schemas: [],

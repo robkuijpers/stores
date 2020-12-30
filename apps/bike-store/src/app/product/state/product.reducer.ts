@@ -60,4 +60,13 @@ export const productReducer = createReducer<ProductState>(
       };
     },
   ),
+  on(
+    ProductActions.loadProductsFailure,
+    (state): ProductState => {
+      return {
+        ...state,
+        products: [],
+      };
+    },
+  ),
 );
