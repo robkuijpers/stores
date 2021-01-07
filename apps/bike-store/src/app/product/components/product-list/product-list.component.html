@@ -1,13 +1,10 @@
-<h3>Products</h3>
+<mat-toolbar>Products</mat-toolbar>
 
-<div>
-  <div *ngFor="let product of products$ | async" (click)="selectProduct()">
-    <span *ngIf="showProductCode">{{ product.code }}</span>
+<mat-list *ngFor="let product of products$ | async" class="flex-container">
+  <mat-list-item (click)="selectProduct(product)" class="flex-item">
     <span>{{ product.name }}</span>
-  </div>
-</div>
+    <span *ngIf="!showCode" mat-card>({{ product.code }})</span>
+  </mat-list-item>
+</mat-list>
 
-<div>
-  <label for="showProductCode">Show code</label>
-  <input type="checkbox" name="showProductCode" (click)="toggleProductCode($event)" />
-</div>
+<mat-checkbox (click)="toggleCode($event)">Show code</mat-checkbox>

@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-page.component.scss'],
 })
 export class ProductPageComponent implements OnInit {
-  constructor() {}
+  opened: boolean;
 
-  ngOnInit(): void {}
+  constructor(private breakpointObserver: BreakpointObserver) {}
+
+  ngOnInit(): void {
+    this.breakpointObserver.observe([Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape]).subscribe((result) => {
+      if (result.matches) {
+        this.opened = false;
+      } else {
+        this.opened = true;
+      }
+    });
+  }
 }

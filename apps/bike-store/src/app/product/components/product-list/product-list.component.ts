@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Product } from '../../models/product.model';
 import { State } from '../../state/product.state';
-import { getShowProductCode, getCurrentProduct, getProducts } from '../../state/product.selectors';
+import { getShowProductCode, getProducts } from '../../state/product.selectors';
 import * as ProductActions from '../../state/product.actions';
 import { Observable } from 'rxjs';
 
@@ -13,9 +13,9 @@ import { Observable } from 'rxjs';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  showProductCode = true;
-  errorMessage = '';
+  showCode: boolean;
   currentProduct: Product;
+  errorMessage = '';
   products$: Observable<Product[]>;
 
   constructor(private store: Store<State>) {}
@@ -23,7 +23,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(ProductActions.loadProducts());
     this.products$ = this.store.select(getProducts);
-    this.store.select(getShowProductCode).subscribe((showProductCode) => (this.showProductCode = showProductCode));
+    this.store.select(getShowProductCode).subscribe((showProductCode) => (this.showCode = showProductCode));
   }
 
   newProduct(): void {
@@ -34,7 +34,7 @@ export class ProductListComponent implements OnInit {
     this.store.dispatch(ProductActions.setCurrentProduct({ product }));
   }
 
-  toggleProductCode(e: Event): void {
+  toggleCode(e: Event): void {
     this.store.dispatch(ProductActions.toggleProductCode());
   }
 }

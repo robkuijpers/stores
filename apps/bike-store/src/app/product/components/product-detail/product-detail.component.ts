@@ -5,7 +5,7 @@ import { getCurrentProduct } from '../../state/product.selectors';
 import { State } from '../../state/product.state';
 
 @Component({
-  selector: 'stores-product-detail-component',
+  selector: 'stores-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss'],
 })

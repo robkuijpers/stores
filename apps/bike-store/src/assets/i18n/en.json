@@ -1,8 +1,8 @@
 {
   "header": {
     "title": "Bike Store",
-    "login": "Login",
-    "logout": "Logout",
+    "login": "Sign in",
+    "logout": "Sign out",
     "home": "Home",
     "products": "Products"
   },

@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { MaterialModule } from '@stores/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from '@stores/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
@@ -17,8 +17,8 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome';
 import { LoginComponent } from './login';
 import { PageNotFoundComponent } from './page-not-found';
-import oktaConfig from './okta.config';
 import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
+import oktaConfig from './okta.config';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -67,7 +67,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       : [],
   ],
   declarations: [AppComponent, WelcomeComponent, LoginComponent, PageNotFoundComponent],
-  exports: [MaterialModule],
+  exports: [],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
