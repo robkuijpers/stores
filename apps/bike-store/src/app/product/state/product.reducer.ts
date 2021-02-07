@@ -3,6 +3,7 @@ import { ProductState } from './product.state';
 import * as ProductActions from './product.actions';
 
 const initialState: ProductState = {
+  loading: false,
   showProductCode: true,
   currentProduct: null,
   products: [],
@@ -52,10 +53,20 @@ export const productReducer = createReducer<ProductState>(
     },
   ),
   on(
+    ProductActions.loadProducts,
+    (state, action): ProductState => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+  ),
+  on(
     ProductActions.loadProductsSuccess,
     (state, action): ProductState => {
       return {
         ...state,
+        loading: false,
         products: action.products,
       };
     },
@@ -65,6 +76,7 @@ export const productReducer = createReducer<ProductState>(
     (state): ProductState => {
       return {
         ...state,
+        loading: false,
         products: [],
       };
     },

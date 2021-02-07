@@ -10,7 +10,7 @@ import { State } from '../../state/product.state';
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-  title = 'Product detail';
+  title = 'Product details';
   errorMessage = '';
   currentProduct: Product;
 

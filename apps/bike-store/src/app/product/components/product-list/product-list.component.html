@@ -1,10 +1,16 @@
 <mat-toolbar>Products</mat-toolbar>
 
+<div *ngIf="showSpinner" class="spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+
 <mat-list *ngFor="let product of products$ | async" class="flex-container">
   <mat-list-item (click)="selectProduct(product)" class="flex-item">
     <span>{{ product.name }}</span>
-    <span *ngIf="!showCode" mat-card>({{ product.code }})</span>
+    <span *ngIf="showCode" mat-card>({{ product.code }})</span>
   </mat-list-item>
 </mat-list>
 
-<mat-checkbox (click)="toggleCode($event)">Show code</mat-checkbox>
+<mat-card>
+  <mat-checkbox [(ngModel)]="showCode" (click)="toggleCode($event)">Show code</mat-checkbox>
+</mat-card>

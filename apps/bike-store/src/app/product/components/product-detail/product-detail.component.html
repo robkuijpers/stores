@@ -1,9 +1,15 @@
 <mat-toolbar>{{ title }}</mat-toolbar>
 
-<mat-list>
-  <mat-list-item>Name: {{ currentProduct?.name }}</mat-list-item>
-  <mat-list-item>Code: {{ currentProduct.code }}</mat-list-item>
-  <mat-list-item>Category: {{ currentProduct.category }}</mat-list-item>
-  <mat-list-item>Description: {{ currentProduct.description }}</mat-list-item>
-  <mat-list-item>Rating: {{ currentProduct.rating }}</mat-list-item>
-</mat-list>
+<mat-card *ngIf="currentProduct">
+  <mat-card-header> </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>Name: {{ currentProduct?.name }}</mat-list-item>
+      <mat-list-item>Code: {{ currentProduct?.code }}</mat-list-item>
+      <mat-list-item>Category: {{ currentProduct?.category }}</mat-list-item>
+      <mat-list-item>Description: {{ currentProduct?.description }}</mat-list-item>
+      <mat-list-item>Rating: {{ currentProduct?.rating }}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-footer> </mat-card-footer>
+</mat-card>

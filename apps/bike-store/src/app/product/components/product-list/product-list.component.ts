@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Product } from '../../models/product.model';
 import { State } from '../../state/product.state';
-import { getShowProductCode, getProducts } from '../../state/product.selectors';
+import { getShowProductCode, getProducts, getProductsLoading } from '../../state/product.selectors';
 import * as ProductActions from '../../state/product.actions';
 import { Observable } from 'rxjs';
 
@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   showCode: boolean;
+  showSpinner: boolean;
   currentProduct: Product;
   errorMessage = '';
   products$: Observable<Product[]>;
@@ -21,6 +22,7 @@ export class ProductListComponent implements OnInit {
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
+    this.store.select(getProductsLoading).subscribe((loading) => (this.showSpinner = loading));
     this.store.dispatch(ProductActions.loadProducts());
     this.products$ = this.store.select(getProducts);
     this.store.select(getShowProductCode).subscribe((showProductCode) => (this.showCode = showProductCode));
