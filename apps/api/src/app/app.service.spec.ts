@@ -13,7 +13,7 @@ describe('AppService', () => {
     service = app.get<AppService>(AppService);
   });
 
-  describe('getData', () => {
+  describe('getProducts', () => {
     it('should return "Welcome to api!"', () => {
       expect(service.getProducts().length).toBe(6);
     });

@@ -10,4 +10,8 @@ export const toggleProductCode = createAction('[Product List Page] Toggle Produc
 // 2e argument is a function with generic argument object that has a product property of type Product.
 export const setCurrentProduct = createAction('[Product List Page] Set Curent Product', props<{ product: Product }>());
 export const clearCurrentProduct = createAction('[Product Edit Page] Clear Curent Product');
-export const initCurrentProduct = createAction('[Product List Page] Init Curent Product');
+export const initCurrentProduct = createAction('[Product Detail Page] Init Curent Product');
+export const saveCurrentProduct = createAction(
+  '[Product Detail Page] Save Curent Product',
+  props<{ product: Product }>(),
+);

@@ -7,7 +7,12 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('products')
-  getData() {
+  getProducts() {
     return this.appService.getProducts();
+  }
+
+  @Get('categories')
+  getCategories() {
+    return this.appService.getCategories();
   }
 }

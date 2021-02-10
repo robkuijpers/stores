@@ -13,10 +13,10 @@ describe('AppController', () => {
     }).compile();
   });
 
-  describe('getData', () => {
+  describe('getProducts', () => {
     it('should return products', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()[0].name).toEqual('Spanner');
+      expect(appController.getProducts()[0].name).toEqual('Spanner');
     });
   });
 });

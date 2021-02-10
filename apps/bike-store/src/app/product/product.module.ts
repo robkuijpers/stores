@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@stores/material';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductPageComponent } from './product-page/product-page.component';
@@ -18,6 +19,7 @@ const productRoutes: Routes = [{ path: '', component: ProductPageComponent }];
     CommonModule,
     MaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(productRoutes),
     StoreModule.forFeature('products', productReducer),
     EffectsModule.forFeature([ProductEffects]),
