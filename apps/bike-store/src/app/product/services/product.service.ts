@@ -10,12 +10,25 @@ import { Product } from '../models';
 })
 export class ProductService {
   private baseUrl = environment.productServiceBaseUrl;
-  private products: Product[];
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/products`).pipe(
+      tap((data) => console.log(JSON.stringify(data))),
+      catchError(this.handleError),
+    );
+  }
+
+  saveProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(`${this.baseUrl}/products`, product).pipe(
+      tap((data) => console.log(JSON.stringify(data))),
+      catchError(this.handleError),
+    );
+  }
+
+  deleteProduct(product: Product): Observable<Product[]> {
+    return this.http.delete<Product[]>(`${this.baseUrl}/products/${product.id}`).pipe(
       tap((data) => console.log(JSON.stringify(data))),
       catchError(this.handleError),
     );

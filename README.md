@@ -144,3 +144,7 @@ https://stackblitz.com/github/ngx-translate/example?file=src%2Fapp%2Fapp.compone
     </select>
   </label>
 </div>
+
+## Run backend: yarn start:api
+
+## Run frontend: yarn start

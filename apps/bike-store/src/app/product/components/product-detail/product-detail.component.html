@@ -1,12 +1,9 @@
 <mat-toolbar class="flex-container">
-  <span>{{ title }}</span>
-  <mat-icon (click)="addProduct()" style="font-size: 1.8em; cursor: pointer" color="warn" aria-label="Add product"
-    >add_circle_outline</mat-icon
-  >
+  <span>Product details</span>
 </mat-toolbar>
 
-<mat-card *ngIf="currentProduct">
-  <mat-card-header> </mat-card-header>
+<mat-card *ngIf="this.productSelected === true" style="max-width: 500px; margin: 24px">
+  <mat-card-header></mat-card-header>
   <mat-card-content>
     <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
       <div>
@@ -23,7 +20,7 @@
           <mat-error *ngIf="!productForm.get('code').valid">Invalid code</mat-error>
         </mat-form-field>
       </div>
-      <div>
+      <!-- <div>
         <mat-form-field appearance="standard">
           <mat-label>Category</mat-label>
           <input matInput formControlName="category" placeholder="Category" required minlength="3" />
@@ -43,16 +40,17 @@
           <input matInput placeholder="Rating" formControlName="rating" />
           <mat-error *ngIf="false">Invalid rating</mat-error>
         </mat-form-field>
-      </div>
+      </div> -->
     </form>
-    <mat-list>
+    <!-- <mat-list>
       <mat-list-item>Name: {{ currentProduct?.name }}</mat-list-item>
       <mat-list-item>Code: {{ currentProduct?.code }}</mat-list-item>
       <mat-list-item>Category: {{ currentProduct?.category }}</mat-list-item>
       <mat-list-item>Description: {{ currentProduct?.description }}</mat-list-item>
       <mat-list-item>Rating: {{ currentProduct?.rating }}</mat-list-item>
-    </mat-list>
+    </mat-list> -->
     <button mat-raised-button color="warn" (click)="saveProduct()" [disabled]="!productForm.valid">Save</button>
+    <button mat-raised-button (click)="deleteProduct()" style="margin-left: 12px">Delete</button>
   </mat-card-content>
   <mat-card-footer></mat-card-footer>
 </mat-card>

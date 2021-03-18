@@ -16,4 +16,24 @@ export class ProductEffects {
       ),
     );
   });
+
+  saveProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActions.saveProduct),
+      mergeMap((action) =>
+        this.productService
+          .saveProduct(action.product)
+          .pipe(map((product) => ProductActions.saveProductSuccess({ product }))),
+      ),
+    );
+  });
+
+  deleteProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActions.deleteProduct),
+      mergeMap((action) =>
+        this.productService.deleteProduct(action.product).pipe(map((product) => ProductActions.deleteProductSuccess())),
+      ),
+    );
+  });
 }

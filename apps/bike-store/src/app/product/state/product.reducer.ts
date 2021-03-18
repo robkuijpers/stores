@@ -3,10 +3,11 @@ import { ProductState } from './product.state';
 import * as ProductActions from './product.actions';
 
 const initialState: ProductState = {
-  loading: false,
   showProductCode: true,
   currentProduct: null,
   products: [],
+  loading: false,
+  error: null,
 };
 
 // pure function: same input = same output with no side effects
@@ -54,10 +55,11 @@ export const productReducer = createReducer<ProductState>(
   ),
   on(
     ProductActions.loadProducts,
-    (state, action): ProductState => {
+    (state): ProductState => {
       return {
         ...state,
         loading: true,
+        error: null,
       };
     },
   ),
@@ -66,18 +68,49 @@ export const productReducer = createReducer<ProductState>(
     (state, action): ProductState => {
       return {
         ...state,
-        loading: false,
         products: action.products,
+        loading: false,
+        error: null,
       };
     },
   ),
   on(
     ProductActions.loadProductsFailure,
+    (state, action): ProductState => {
+      return {
+        ...state,
+        products: [],
+        loading: false,
+        error: 'error',
+      };
+    },
+  ),
+  on(
+    ProductActions.deleteProduct,
+    (state): ProductState => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+  ),
+  on(
+    ProductActions.deleteProductSuccess,
     (state): ProductState => {
       return {
         ...state,
         loading: false,
-        products: [],
+        error: null,
+      };
+    },
+  ),
+  on(
+    ProductActions.deleteProductFailure,
+    (state, action): ProductState => {
+      return {
+        ...state,
+        loading: false,
+        error: 'error',
       };
     },
   ),

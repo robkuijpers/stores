@@ -1,11 +1,24 @@
 mat-card {
   max-width: 400px;
   margin: 2em auto;
+  padding: 0;
   margin-top: 15%;
   text-align: center;
+}
+
+mat-card-header {
+  background: #673ab7;
+  color: white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+mat-card-content {
+  padding: 16px;
 }
 
 mat-form-field {
   display: block;
   font-size: 18px;
+  margin-bottom: 20px;
 }

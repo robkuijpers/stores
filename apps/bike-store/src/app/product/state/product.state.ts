@@ -6,8 +6,9 @@ export interface State extends AppState.State {
 }
 
 export interface ProductState {
-  loading: boolean;
   showProductCode: boolean;
   currentProduct: Product;
   products: Product[];
+  loading: boolean;
+  error: string;
 }

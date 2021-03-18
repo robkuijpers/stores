@@ -11,7 +11,11 @@ export const toggleProductCode = createAction('[Product List Page] Toggle Produc
 export const setCurrentProduct = createAction('[Product List Page] Set Curent Product', props<{ product: Product }>());
 export const clearCurrentProduct = createAction('[Product Edit Page] Clear Curent Product');
 export const initCurrentProduct = createAction('[Product Detail Page] Init Curent Product');
-export const saveCurrentProduct = createAction(
-  '[Product Detail Page] Save Curent Product',
-  props<{ product: Product }>(),
-);
+
+export const saveProduct = createAction('[Product Detail Page] Save Product', props<{ product: Product }>());
+export const saveProductSuccess = createAction('[Product API] Save Success', props<{ product: Product }>());
+export const saveProductFailure = createAction('[Product API] Save Failure');
+
+export const deleteProduct = createAction('[Product Detail Page] Delete Product', props<{ product: Product }>());
+export const deleteProductSuccess = createAction('[Product API] Delete Success');
+export const deleteProductFailure = createAction('[Product API] Delete Failure');

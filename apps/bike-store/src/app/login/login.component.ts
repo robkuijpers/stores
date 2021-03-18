@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup;
   loginInvalid: boolean;
 
-  private formSubmitAttempt: boolean;
   private returnUrl: string;
 
   constructor(
@@ -40,7 +39,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async onSubmit() {
     this.loginInvalid = false;
-    this.formSubmitAttempt = false;
     if (this.form.valid) {
       try {
         const username = this.form.get('username').value;
@@ -49,8 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       } catch (err) {
         this.loginInvalid = true;
       }
-    } else {
-      this.formSubmitAttempt = true;
     }
   }
 }

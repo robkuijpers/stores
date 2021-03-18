@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  showCode: boolean;
-  showSpinner: boolean;
+  showCode$: Observable<boolean>;
+  loading$: Observable<boolean>;
   currentProduct: Product;
   errorMessage = '';
   products$: Observable<Product[]>;
@@ -22,10 +22,10 @@ export class ProductListComponent implements OnInit {
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
-    this.store.select(getProductsLoading).subscribe((loading) => (this.showSpinner = loading));
     this.store.dispatch(ProductActions.loadProducts());
+    this.loading$ = this.store.select(getProductsLoading);
+    this.showCode$ = this.store.select(getShowProductCode);
     this.products$ = this.store.select(getProducts);
-    this.store.select(getShowProductCode).subscribe((showProductCode) => (this.showCode = showProductCode));
   }
 
   newProduct(): void {
@@ -36,7 +36,7 @@ export class ProductListComponent implements OnInit {
     this.store.dispatch(ProductActions.setCurrentProduct({ product }));
   }
 
-  toggleCode(e: Event): void {
+  toggleCode(): void {
     this.store.dispatch(ProductActions.toggleProductCode());
   }
 }
