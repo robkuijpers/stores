@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products: Product[] = [];
+  //products: Product[] = [];
   showCode$: Observable<boolean>;
   loading$: Observable<boolean>;
   currentProduct: Product;
@@ -23,9 +23,9 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(ProductActions.loadProducts());
+    this.products$ = this.store.select(getProducts);
     this.loading$ = this.store.select(getProductsLoading);
     this.showCode$ = this.store.select(getShowProductCode);
-    this.products$ = this.store.select(getProducts);
   }
 
   newProduct(): void {

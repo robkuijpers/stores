@@ -32,7 +32,7 @@ export class ProductEffects {
     return this.actions$.pipe(
       ofType(ProductActions.deleteProduct),
       mergeMap((action) =>
-        this.productService.deleteProduct(action.product).pipe(map((product) => ProductActions.deleteProductSuccess())),
+        this.productService.deleteProduct(action.product).pipe(map(() => ProductActions.deleteProductSuccess())),
       ),
     );
   });

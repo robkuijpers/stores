@@ -2,7 +2,7 @@
   <span>Product details</span>
 </mat-toolbar>
 
-<mat-card *ngIf="this.productSelected === true" style="max-width: 500px; margin: 24px">
+<mat-card style="max-width: 500px; min-width: 500px; margin: 24px">
   <mat-card-header></mat-card-header>
   <mat-card-content>
     <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
@@ -42,15 +42,10 @@
         </mat-form-field>
       </div> -->
     </form>
-    <!-- <mat-list>
-      <mat-list-item>Name: {{ currentProduct?.name }}</mat-list-item>
-      <mat-list-item>Code: {{ currentProduct?.code }}</mat-list-item>
-      <mat-list-item>Category: {{ currentProduct?.category }}</mat-list-item>
-      <mat-list-item>Description: {{ currentProduct?.description }}</mat-list-item>
-      <mat-list-item>Rating: {{ currentProduct?.rating }}</mat-list-item>
-    </mat-list> -->
     <button mat-raised-button color="warn" (click)="saveProduct()" [disabled]="!productForm.valid">Save</button>
-    <button mat-raised-button (click)="deleteProduct()" style="margin-left: 12px">Delete</button>
+    <button mat-raised-button (click)="deleteProduct()" [disabled]="!productForm.valid" style="margin-left: 12px">
+      Delete
+    </button>
   </mat-card-content>
   <mat-card-footer></mat-card-footer>
 </mat-card>
