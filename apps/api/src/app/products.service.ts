@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { Product } from './models';
 
 @Injectable()
-export class AppService {
-  private products = [
+export class ProductsService {
+  private products: Product[] = [
     {
-      id: 1,
+      id: '0',
       name: 'Spanner',
       category: 'tools',
       code: 'TBX-0023',
@@ -12,7 +13,7 @@ export class AppService {
       rating: 3.7,
     },
     {
-      id: 2,
+      id: '1',
       name: 'Hammer',
       category: 'tools',
       code: 'TBX-0026',
@@ -20,7 +21,7 @@ export class AppService {
       rating: 3.7,
     },
     {
-      id: 3,
+      id: '2',
       name: 'Screw driver',
       category: 'tools',
       code: 'TBX-0028',
@@ -28,7 +29,7 @@ export class AppService {
       rating: 3.7,
     },
     {
-      id: 4,
+      id: '3',
       name: 'Paint brush',
       category: 'paint',
       code: 'TBX-0030',
@@ -36,7 +37,7 @@ export class AppService {
       rating: 3.7,
     },
     {
-      id: 5,
+      id: '4',
       name: 'Paint roller',
       category: 'paint',
       code: 'TBX-0032',
@@ -44,7 +45,7 @@ export class AppService {
       rating: 3.7,
     },
     {
-      id: 6,
+      id: '5',
       name: 'Paint',
       category: 'paint',
       code: 'TBX-0022',
@@ -52,7 +53,7 @@ export class AppService {
       rating: 3.7,
     },
     {
-      id: 7,
+      id: '6',
       name: 'Wrench',
       category: 'tools',
       code: 'TBC-0009',
@@ -60,7 +61,7 @@ export class AppService {
       rating: 4.2,
     },
     {
-      id: 9,
+      id: '7',
       name: 'Large spanner',
       category: 'tools',
       code: 'TBC-00200',
@@ -68,7 +69,7 @@ export class AppService {
       rating: 3.9,
     },
     {
-      id: 10,
+      id: '8',
       name: 'Battery loader',
       category: 'tools',
       code: 'TBC-0350',
@@ -77,46 +78,32 @@ export class AppService {
     },
   ];
 
-  private categories = [
-    {
-      id: 1,
-      name: 'tools',
-    },
-    {
-      id: 2,
-      name: 'paint',
-    },
-    {
-      id: 3,
-      name: 'wood',
-    },
-  ];
-
-  getProducts() {
+  findAll(query: any): Product[] {
     return this.products;
   }
 
-  getCategories() {
-    return this.categories;
+  findOne(id: string): Product {
+    return this.products[id];
   }
 
-  addProduct(product) {
-    product.id = this.products.length + 1;
+  add(product: Product): Product {
+    product.id = '' + (this.products.length + 1);
     this.products.push(product);
     return product;
   }
 
-  updateProduct(product): any {
-    let p = this.products.find((p) => p.id === product.id);
-    if (p) {
-      p = JSON.parse(JSON.stringify(product));
-      return p;
+  update(id: string, product: Product): Product {
+    const idx = this.products.findIndex((p) => p.id === id);
+    const source = this.products[idx];
+    if (source) {
+      this.products[idx] = Object.assign(product, source);
+      return this.products[idx];
     }
     return null;
   }
 
-  deleteProduct(product): number {
-    let idx = this.products.findIndex((p) => p.id === product.id);
+  delete(id: string): number {
+    const idx = this.products.findIndex((p) => p.id === id);
     if (idx >= 0) {
       this.products.splice(idx, 1);
       return idx;
