@@ -1,8 +1,8 @@
 <mat-sidenav-container class="product-sidenav-container">
   <mat-sidenav mode="side" opened class="product-sidenav">
-    <stores-product-list></stores-product-list>
+    <stores-product-list #productList> </stores-product-list>
   </mat-sidenav>
   <mat-sidenav-content class="product-sidenav-content">
-    <stores-product-detail></stores-product-detail>
+    <stores-product-detail (productChanged)="refresh()"> </stores-product-detail>
   </mat-sidenav-content>
 </mat-sidenav-container>

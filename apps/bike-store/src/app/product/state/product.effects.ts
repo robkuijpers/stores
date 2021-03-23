@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { ProductService } from '../services';
 import * as ProductActions from './product.actions';
 
@@ -11,7 +11,7 @@ export class ProductEffects {
   loadProducts$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProductActions.loadProducts),
-      mergeMap(() =>
+      switchMap(() =>
         this.productService.getProducts().pipe(map((products) => ProductActions.loadProductsSuccess({ products }))),
       ),
     );
@@ -20,20 +20,16 @@ export class ProductEffects {
   saveProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProductActions.saveProduct),
-      mergeMap((action) =>
-        this.productService
-          .saveProduct(action.product)
-          .pipe(map((product) => ProductActions.saveProductSuccess({ product }))),
-      ),
+      switchMap((action) => this.productService.saveProduct(action.product)),
+      switchMap(() => [ProductActions.saveProductSuccess(), ProductActions.loadProducts()]),
     );
   });
 
   deleteProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProductActions.deleteProduct),
-      mergeMap((action) =>
-        this.productService.deleteProduct(action.product).pipe(map(() => ProductActions.deleteProductSuccess())),
-      ),
+      switchMap((action) => this.productService.deleteProduct(action.product)),
+      switchMap(() => [ProductActions.deleteProductSuccess(), ProductActions.loadProducts()]),
     );
   });
 }

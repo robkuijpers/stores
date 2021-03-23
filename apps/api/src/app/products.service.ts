@@ -93,11 +93,10 @@ export class ProductsService {
   }
 
   update(id: string, product: Product): Product {
-    const idx = this.products.findIndex((p) => p.id === id);
-    const source = this.products[idx];
-    if (source) {
-      this.products[idx] = Object.assign(product, source);
-      return this.products[idx];
+    const orig = this.products.find((p) => p.id === id);
+    if (orig) {
+      Object.assign(orig, product);
+      return orig;
     }
     return null;
   }

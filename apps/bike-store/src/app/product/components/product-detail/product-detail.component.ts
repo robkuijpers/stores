@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../../state/product.actions';
 import { getCurrentProduct } from '../../state/product.selectors';
 import { State } from '../../state/product.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Product } from '../../models';
 
 @Component({
   selector: 'stores-product-detail',
@@ -13,6 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProductDetailComponent implements OnInit {
   errorMessage = '';
+  product: Product;
+
+  @Output() productChanged = new EventEmitter();
 
   productForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -22,7 +26,10 @@ export class ProductDetailComponent implements OnInit {
   constructor(private _store: Store<State>, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this._store.select(getCurrentProduct).subscribe((product) => this.productForm.patchValue(product));
+    this._store.select(getCurrentProduct).subscribe((product) => {
+      this.product = product;
+      this.productForm.patchValue(product);
+    });
   }
 
   saveProduct(): void {
@@ -33,7 +40,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   deleteProduct(): void {
-    this._store.dispatch(ProductActions.deleteProduct({ product: this.productForm.value }));
+    this._store.dispatch(ProductActions.deleteProduct({ product: this.product }));
     this._store.dispatch(ProductActions.clearCurrentProduct());
     this._snackBar.open('Product successfully deleted', 'Close', { duration: 3000 });
     this.productForm.reset();

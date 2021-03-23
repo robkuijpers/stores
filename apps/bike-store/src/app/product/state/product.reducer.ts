@@ -76,7 +76,7 @@ export const productReducer = createReducer<ProductState>(
   ),
   on(
     ProductActions.loadProductsFailure,
-    (state, action): ProductState => {
+    (state): ProductState => {
       return {
         ...state,
         products: [],
@@ -106,7 +106,36 @@ export const productReducer = createReducer<ProductState>(
   ),
   on(
     ProductActions.deleteProductFailure,
-    (state, action): ProductState => {
+    (state): ProductState => {
+      return {
+        ...state,
+        loading: false,
+        error: 'error',
+      };
+    },
+  ),
+  on(
+    ProductActions.saveProduct,
+    (state): ProductState => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+  ),
+  on(
+    ProductActions.saveProductSuccess,
+    (state): ProductState => {
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    },
+  ),
+  on(
+    ProductActions.saveProductFailure,
+    (state): ProductState => {
       return {
         ...state,
         loading: false,

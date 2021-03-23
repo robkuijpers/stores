@@ -27,8 +27,8 @@ export class ProductService {
     );
   }
 
-  deleteProduct(product: Product): Observable<Product[]> {
-    return this.http.delete<Product[]>(`${this.baseUrl}/products/${product.id}`).pipe(
+  deleteProduct(product: Product): Observable<number> {
+    return this.http.delete<number>(`${this.baseUrl}/products/${product.id}`).pipe(
       tap((data) => console.log(JSON.stringify(data))),
       catchError(this.handleError),
     );

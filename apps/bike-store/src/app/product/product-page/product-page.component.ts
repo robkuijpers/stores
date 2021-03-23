@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'stores-product-page',
@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductPageComponent implements OnInit {
   opened: boolean;
+
+  @ViewChild('productList') productList: ElementRef;
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
@@ -20,4 +22,6 @@ export class ProductPageComponent implements OnInit {
       }
     });
   }
+
+  refresh(): void {}
 }
