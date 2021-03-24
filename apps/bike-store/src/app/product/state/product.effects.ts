@@ -17,11 +17,19 @@ export class ProductEffects {
     );
   });
 
-  saveProduct$ = createEffect(() => {
+  addProduct$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ProductActions.saveProduct),
-      switchMap((action) => this.productService.saveProduct(action.product)),
-      switchMap(() => [ProductActions.saveProductSuccess(), ProductActions.loadProducts()]),
+      ofType(ProductActions.addProduct),
+      switchMap((action) => this.productService.addProduct(action.product)),
+      switchMap(() => [ProductActions.addProductSuccess(), ProductActions.loadProducts()]),
+    );
+  });
+
+  updateProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActions.updateProduct),
+      switchMap((action) => this.productService.updateProduct(action.id, action.product)),
+      switchMap(() => [ProductActions.updateProductSuccess(), ProductActions.loadProducts()]),
     );
   });
 

@@ -11,9 +11,16 @@ export const setCurrentProduct = createAction('[Product List Page] Set Curent Pr
 export const clearCurrentProduct = createAction('[Product Edit Page] Clear Curent Product');
 export const initCurrentProduct = createAction('[Product Detail Page] Init Curent Product');
 
-export const saveProduct = createAction('[Product Detail Page] Save Product', props<{ product: Product }>());
-export const saveProductSuccess = createAction('[Product API] Save Success');
-export const saveProductFailure = createAction('[Product API] Save Failure');
+export const addProduct = createAction('[Product Detail Page] Add Product', props<{ product: Product }>());
+export const addProductSuccess = createAction('[Product API] Add Success');
+export const addProductFailure = createAction('[Product API] Add Failure');
+
+export const updateProduct = createAction(
+  '[Product Detail Page] Update Product',
+  props<{ id: string; product: Product }>(),
+);
+export const updateProductSuccess = createAction('[Product API] Update Success');
+export const updateProductFailure = createAction('[Product API] Update Failure');
 
 export const deleteProduct = createAction('[Product Detail Page] Delete Product', props<{ product: Product }>());
 export const deleteProductSuccess = createAction('[Product API] Delete Success');

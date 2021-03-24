@@ -95,8 +95,7 @@ export class ProductsService {
   update(id: string, product: Product): Product {
     const orig = this.products.find((p) => p.id === id);
     if (orig) {
-      Object.assign(orig, product);
-      return orig;
+      return Object.assign(orig, product);
     }
     return null;
   }

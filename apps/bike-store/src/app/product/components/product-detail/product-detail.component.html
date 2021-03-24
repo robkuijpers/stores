@@ -1,5 +1,5 @@
 <mat-toolbar class="flex-container">
-  <span>Product details</span>
+  <span>Details</span>
 </mat-toolbar>
 
 <mat-card style="max-width: 500px; min-width: 500px; margin: 24px">
@@ -42,8 +42,15 @@
         </mat-form-field>
       </div> -->
     </form>
-    <button mat-raised-button color="warn" (click)="saveProduct()" [disabled]="!productForm.valid">Save</button>
-    <button mat-raised-button (click)="deleteProduct()" [disabled]="!productForm.valid" style="margin-left: 12px">
+    <button mat-raised-button color="warn" (click)="saveProduct()" [disabled]="!product || !productForm.valid">
+      Save
+    </button>
+    <button
+      mat-raised-button
+      (click)="deleteProduct()"
+      [disabled]="!product || !productForm.valid"
+      style="margin-left: 12px"
+    >
       Delete
     </button>
   </mat-card-content>

@@ -43,8 +43,8 @@ export const productReducer = createReducer<ProductState>(
       return {
         ...state,
         currentProduct: {
-          id: 0,
-          name: 'New',
+          id: null,
+          name: 'New product',
           category: '',
           code: '',
           description: '',
@@ -115,7 +115,7 @@ export const productReducer = createReducer<ProductState>(
     },
   ),
   on(
-    ProductActions.saveProduct,
+    ProductActions.addProduct,
     (state): ProductState => {
       return {
         ...state,
@@ -124,7 +124,7 @@ export const productReducer = createReducer<ProductState>(
     },
   ),
   on(
-    ProductActions.saveProductSuccess,
+    ProductActions.addProductSuccess,
     (state): ProductState => {
       return {
         ...state,
@@ -134,7 +134,36 @@ export const productReducer = createReducer<ProductState>(
     },
   ),
   on(
-    ProductActions.saveProductFailure,
+    ProductActions.addProductFailure,
+    (state): ProductState => {
+      return {
+        ...state,
+        loading: false,
+        error: 'error',
+      };
+    },
+  ),
+  on(
+    ProductActions.updateProduct,
+    (state): ProductState => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+  ),
+  on(
+    ProductActions.updateProductSuccess,
+    (state): ProductState => {
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    },
+  ),
+  on(
+    ProductActions.updateProductFailure,
     (state): ProductState => {
       return {
         ...state,

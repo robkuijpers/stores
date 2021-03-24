@@ -33,16 +33,29 @@ export class ProductDetailComponent implements OnInit {
   }
 
   saveProduct(): void {
-    this._store.dispatch(ProductActions.saveProduct({ product: this.productForm.value }));
-    this._store.dispatch(ProductActions.clearCurrentProduct());
+    this.product.id ? this.updateProduct() : this.addProduct();
+  }
+
+  private addProduct(): void {
+    this._store.dispatch(ProductActions.addProduct({ product: this.productForm.value }));
+    this._snackBar.open('Product successfully added', 'Close', { duration: 3000 });
+    this.clear();
+  }
+
+  private updateProduct(): void {
+    this._store.dispatch(ProductActions.updateProduct({ id: this.product.id, product: this.productForm.value }));
     this._snackBar.open('Product successfully updated', 'Close', { duration: 3000 });
-    this.productForm.reset();
+    this.clear();
   }
 
   deleteProduct(): void {
     this._store.dispatch(ProductActions.deleteProduct({ product: this.product }));
-    this._store.dispatch(ProductActions.clearCurrentProduct());
     this._snackBar.open('Product successfully deleted', 'Close', { duration: 3000 });
+    this.clear();
+  }
+
+  private clear() {
+    this._store.dispatch(ProductActions.clearCurrentProduct());
     this.productForm.reset();
   }
 }
