@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Product } from '../../models/product.model';
 import { State } from '../../state/product.state';
@@ -12,12 +12,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  //products: Product[] = [];
   showCode$: Observable<boolean>;
   loading$: Observable<boolean>;
   currentProduct: Product;
   errorMessage = '';
   products$: Observable<Product[]>;
+  selectedProduct: Product;
+
+  @ViewChildren('mat-list-item') items: QueryList<any>;
 
   constructor(private store: Store<State>) {}
 
@@ -28,11 +30,16 @@ export class ProductListComponent implements OnInit {
     this.showCode$ = this.store.select(getShowProductCode);
   }
 
+  isSelected(product: Product) {
+    return this.selectedProduct === product;
+  }
+
   newProduct(): void {
     this.store.dispatch(ProductActions.initCurrentProduct());
   }
 
   selectProduct(product: Product): void {
+    this.selectedProduct = product;
     this.store.dispatch(ProductActions.setCurrentProduct({ product }));
   }
 
