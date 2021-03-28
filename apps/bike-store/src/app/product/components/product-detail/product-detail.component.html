@@ -16,14 +16,14 @@
       <div>
         <mat-form-field appearance="standard">
           <mat-label>Code</mat-label>
-          <input matInput formControlName="code" placeholder="Code" required minlength="3" />
+          <input matInput formControlName="code" placeholder="Code" required />
           <mat-error *ngIf="!productForm.get('code').valid">Invalid code</mat-error>
         </mat-form-field>
       </div>
-      <!-- <div>
+      <div>
         <mat-form-field appearance="standard">
           <mat-label>Category</mat-label>
-          <input matInput formControlName="category" placeholder="Category" required minlength="3" />
+          <input matInput formControlName="category" placeholder="Category" required />
           <mat-error *ngIf="!productForm.get('category').valid">Invalid category</mat-error>
         </mat-form-field>
       </div>
@@ -40,8 +40,9 @@
           <input matInput placeholder="Rating" formControlName="rating" />
           <mat-error *ngIf="false">Invalid rating</mat-error>
         </mat-form-field>
-      </div> -->
+      </div>
     </form>
+    <div>TODO: spectator, i18n, validation messages, cypress, storybook.</div>
     <button mat-raised-button color="warn" (click)="saveProduct()" [disabled]="!product || !productForm.valid">
       Save
     </button>
@@ -56,3 +57,12 @@
   </mat-card-content>
   <mat-card-footer></mat-card-footer>
 </mat-card>
+
+<ng-template #confirmDialog let-data>
+  <h2 mat-dialog-title>Confirmation</h2>
+  <mat-dialog-content> Are you sure you want to delete {{ product.name }}? </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-dialog-close class="mat-raised-button">Cancel</button>
+    <button [mat-dialog-close]="true" class="mat-raised-button mat-primary" style="margin-left: 16px">Delete</button>
+  </mat-dialog-actions>
+</ng-template>
