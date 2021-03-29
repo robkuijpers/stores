@@ -49,6 +49,7 @@ export const productReducer = createReducer<ProductState>(
           code: '',
           description: '',
           rating: null,
+          images: [],
         },
       };
     },

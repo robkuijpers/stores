@@ -30,7 +30,7 @@
       <div>
         <mat-form-field appearance="standard">
           <mat-label>Description</mat-label>
-          <input matInput placeholder="Description" formControlName="description" />
+          <textarea matInput placeholder="Description" formControlName="description"></textarea>
           <mat-error *ngIf="false">Invalid description</mat-error>
         </mat-form-field>
       </div>
@@ -39,6 +39,43 @@
           <mat-label>Rating</mat-label>
           <input matInput placeholder="Rating" formControlName="rating" />
           <mat-error *ngIf="false">Invalid rating</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <div class="file-upload">
+            <!-- <mat-toolbar> -->
+            <input matInput readonly name="fileUploadDummy" style="display: none" />
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="uploadFileInput.click()">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+
+            <!-- <button mat-flat-button color="primary">
+                Browse
+              </button> -->
+            <!-- </mat-toolbar> -->
+            <input
+              type="file"
+              style="display: none"
+              formControlName="images"
+              #uploadFileInput
+              (change)="fileChangeEvent($event)"
+              name="fileUpload"
+              multiple
+              accept="image/*"
+            />
+            <mat-list>
+              <mat-list-item
+                *ngFor="let selectedFile of selectedFiles; let idx = index"
+                style="display: flex; flex-direction: row; justify-content: space-between"
+              >
+                <span>{{ selectedFile }} </span>
+                <span (click)="removeUploadFile(idx)" style="cursor: pointer; align-self: flex-end">
+                  <mat-icon>delete</mat-icon>
+                </span>
+              </mat-list-item>
+            </mat-list>
+          </div>
         </mat-form-field>
       </div>
     </form>

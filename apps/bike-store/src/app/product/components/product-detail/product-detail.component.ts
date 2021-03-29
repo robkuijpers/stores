@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../../state/product.actions';
@@ -17,10 +17,12 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 export class ProductDetailComponent implements OnInit {
   errorMessage = '';
   product: Product;
+  selectedFiles: string[] = [];
 
   @Output() productChanged = new EventEmitter();
 
   @ViewChild('confirmDialog') confirmDialog: TemplateRef<any>;
+  @ViewChild('uploadFileInput') fileUploadInput: ElementRef<any>;
 
   productForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -28,6 +30,7 @@ export class ProductDetailComponent implements OnInit {
     category: new FormControl('', [Validators.required, Validators.minLength(3)]),
     description: new FormControl(''),
     rating: new FormControl(''),
+    images: new FormControl(),
   });
 
   constructor(private _store: Store<State>, private _snackBar: MatSnackBar, private _dialog: MatDialog) {}
@@ -71,7 +74,6 @@ export class ProductDetailComponent implements OnInit {
     // });
 
     const dialogRef = this._dialog.open(this.confirmDialog, { data: { produt: this.product } });
-
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         this._store.dispatch(ProductActions.deleteProduct({ product: this.product }));
@@ -79,6 +81,30 @@ export class ProductDetailComponent implements OnInit {
         this.clear();
       }
     });
+  }
+
+  fileChangeEvent(evt: Event): void {
+    const target: HTMLInputElement = evt.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      Array.from(target.files).forEach((file: File) => {
+        this.selectedFiles.push(file.name + ' (' + Math.trunc(file.size / 1000) + 'kb)');
+      });
+
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent) => {
+        const image = new Image();
+        image.src = (e.target as FileReader).result as string;
+        image.onload = (rs) => {
+          // Return Base64 Data URL
+          const imgBase64Path = (e.target as FileReader).result;
+        };
+      };
+      reader.readAsDataURL(target.files[0]);
+    }
+  }
+
+  removeUploadFile(index: number) {
+    this.selectedFiles.splice(index, 1);
   }
 
   private clear() {
