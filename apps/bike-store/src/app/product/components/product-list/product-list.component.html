@@ -5,16 +5,18 @@
 <div class="flex-container">
   <mat-toolbar>Bikes</mat-toolbar>
 
-  <mat-list>
-    <mat-list-item
+  <mat-selection-list [multiple]="false">
+    <mat-list-option
       *ngFor="let product of products$ | async"
       (click)="selectProduct(product)"
       [ngClass]="{ selected: isSelected(product) }"
     >
-      <span>{{ product.name }}</span>
-      <span *ngIf="showCode$ | async" class="product-code">({{ product.code }})</span>
-    </mat-list-item>
-  </mat-list>
+      <div>
+        <span>{{ product.name }}</span>
+        <span *ngIf="showCode$ | async" class="product-code" style="font-size: 12px">({{ product.code }})</span>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
 
   <mat-card>
     <mat-checkbox [checked]="showCode$ | async" (change)="toggleCode()">Show code</mat-checkbox>

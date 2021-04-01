@@ -2,13 +2,20 @@ import { Component, OnInit, Output, EventEmitter, TemplateRef, ViewChild, Elemen
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../../state/product.actions';
-import { getCurrentProduct } from '../../state/product.selectors';
+import { getCurrentProduct, getProductError } from '../../state/product.selectors';
 import { State } from '../../state/product.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from '../../models';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { Observable } from 'rxjs';
 
+export interface SelectedFile {
+  name: string;
+  type: string;
+  size: number;
+  base64: string;
+}
 @Component({
   selector: 'stores-product-detail',
   templateUrl: './product-detail.component.html',
@@ -17,7 +24,9 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 export class ProductDetailComponent implements OnInit {
   errorMessage = '';
   product: Product;
-  selectedFiles: string[] = [];
+  error: string;
+  selectedFiles: SelectedFile[] = [];
+  currentProduct$: Observable<Product>;
 
   @Output() productChanged = new EventEmitter();
 
@@ -40,6 +49,10 @@ export class ProductDetailComponent implements OnInit {
       this.product = product;
       this.productForm.patchValue(product);
     });
+    this._store.select(getProductError).subscribe((error) => {
+      this.error = error;
+    });
+    this.currentProduct$ = this._store.select(getCurrentProduct);
   }
 
   saveProduct(): void {
@@ -48,36 +61,28 @@ export class ProductDetailComponent implements OnInit {
 
   private addProduct(): void {
     this._store.dispatch(ProductActions.addProduct({ product: this.productForm.value }));
-    this._snackBar.open('Product successfully added', 'Close', { duration: 3000 });
+    if (this.error === null) {
+      this._snackBar.open('Product successfully added', 'Close', { duration: 3000 });
+    }
     this.clear();
   }
 
   private updateProduct(): void {
     this._store.dispatch(ProductActions.updateProduct({ id: this.product.id, product: this.productForm.value }));
-    this._snackBar.open('Product successfully updated', 'Close', { duration: 3000 });
+    if (this.error === null) {
+      this._snackBar.open('Product successfully updated', 'Close', { duration: 3000 });
+    }
     this.clear();
   }
 
   deleteProduct(): void {
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.data = {
-    //   product: this.product
-    // }
-    // const dialogRef: MatDialogRef<ConfirmationComponent> = this._dialog.open(ConfirmationComponent, dialogConfig);
-
-    // dialogRef.afterClosed().subscribe((data) => {
-    //   if (data) {
-    //     this._store.dispatch(ProductActions.deleteProduct({ product: this.product }));
-    //     this._snackBar.open('Product successfully deleted', 'Close', { duration: 3000 });
-    //     this.clear();
-    //   }
-    // });
-
     const dialogRef = this._dialog.open(this.confirmDialog, { data: { produt: this.product } });
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         this._store.dispatch(ProductActions.deleteProduct({ product: this.product }));
-        this._snackBar.open('Product successfully deleted', 'Close', { duration: 3000 });
+        if (this.error === null) {
+          this._snackBar.open('Product successfully deleted', 'Close', { duration: 3000 });
+        }
         this.clear();
       }
     });
@@ -86,26 +91,37 @@ export class ProductDetailComponent implements OnInit {
   fileChangeEvent(evt: Event): void {
     const target: HTMLInputElement = evt.target as HTMLInputElement;
     if (target.files && target.files.length) {
-      Array.from(target.files).forEach((file: File) => {
-        this.selectedFiles.push(file.name + ' (' + Math.trunc(file.size / 1000) + 'kb)');
+      Array.from(target.files).forEach(async (file: File) => {
+        const base64Str = await this.readFileBase64(file);
+        const f = {
+          name: file.name,
+          type: file.type,
+          size: Math.trunc(file.size / 1000),
+          base64: base64Str,
+        } as SelectedFile;
+        this.selectedFiles.push(f);
       });
-
-      const reader = new FileReader();
-      reader.onload = (e: ProgressEvent) => {
-        const image = new Image();
-        image.src = (e.target as FileReader).result as string;
-        image.onload = (rs) => {
-          // Return Base64 Data URL
-          const imgBase64Path = (e.target as FileReader).result;
-        };
-      };
-      reader.readAsDataURL(target.files[0]);
     }
   }
 
   removeUploadFile(index: number) {
     this.selectedFiles.splice(index, 1);
   }
+
+  private readFileBase64 = async (file: File) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.addEventListener(
+        'load',
+        function () {
+          const base64 = reader.result;
+          resolve(base64);
+        },
+        false,
+      );
+      reader.readAsDataURL(file);
+    });
+  };
 
   private clear() {
     this._store.dispatch(ProductActions.clearCurrentProduct());

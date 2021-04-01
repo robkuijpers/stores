@@ -10,3 +10,5 @@ export const getProductsLoading = createSelector(getProductFeatureState, (state)
 export const getCurrentProduct = createSelector(getProductFeatureState, (state) => state.currentProduct);
 
 export const getProducts = createSelector(getProductFeatureState, (state) => state.products);
+
+export const getProductError = createSelector(getProductFeatureState, (state) => state.error);

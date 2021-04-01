@@ -2,7 +2,7 @@
   <span>Details</span>
 </mat-toolbar>
 
-<mat-card style="max-width: 500px; min-width: 500px; margin: 24px">
+<mat-card style="max-width: 500px; min-width: 500px; margin: 24px" *ngIf="currentProduct$ | async">
   <mat-card-header></mat-card-header>
   <mat-card-content>
     <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
@@ -44,16 +44,16 @@
       <div>
         <mat-form-field appearance="standard">
           <div class="file-upload">
-            <!-- <mat-toolbar> -->
             <input matInput readonly name="fileUploadDummy" style="display: none" />
-            <button mat-mini-fab color="primary" class="upload-btn" (click)="uploadFileInput.click()">
+            <button
+              mat-mini-fab
+              color="primary"
+              class="upload-btn"
+              matTooltip="Add image(s)"
+              (click)="uploadFileInput.click()"
+            >
               <mat-icon>attach_file</mat-icon>
             </button>
-
-            <!-- <button mat-flat-button color="primary">
-                Browse
-              </button> -->
-            <!-- </mat-toolbar> -->
             <input
               type="file"
               style="display: none"
@@ -65,21 +65,26 @@
               accept="image/*"
             />
             <mat-list>
-              <mat-list-item
-                *ngFor="let selectedFile of selectedFiles; let idx = index"
-                style="display: flex; flex-direction: row; justify-content: space-between"
-              >
-                <span>{{ selectedFile }} </span>
-                <span (click)="removeUploadFile(idx)" style="cursor: pointer; align-self: flex-end">
-                  <mat-icon>delete</mat-icon>
-                </span>
+              <mat-list-item *ngFor="let selectedFile of selectedFiles; let idx = index">
+                <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+                  <span style="font-size: 14px">{{ selectedFile.name }} {{ selectedFile.size }} kb</span>
+                  <span
+                    ><img [src]="selectedFile.base64" style="width: 30px; height: 30px; align-self: flex-end"
+                  /></span>
+                  <span
+                    (click)="removeUploadFile(idx)"
+                    style="cursor: pointer; align-self: flex-end; color: blueviolet"
+                  >
+                    <mat-icon style="width: 16px">delete</mat-icon>
+                  </span>
+                </div>
               </mat-list-item>
             </mat-list>
           </div>
         </mat-form-field>
       </div>
     </form>
-    <div>TODO: spectator, i18n, validation messages, cypress, storybook.</div>
+    <!-- <div>TODO: spectator, i18n, validation messages, cypress, storybook.</div> -->
     <button mat-raised-button color="warn" (click)="saveProduct()" [disabled]="!product || !productForm.valid">
       Save
     </button>
