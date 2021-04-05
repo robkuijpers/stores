@@ -1,9 +1,11 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Product } from '../../models/product.model';
-import { State } from '../../state/product.state';
-import { getShowProductCode, getProducts, getProductsLoading } from '../../state/product.selectors';
-import * as ProductActions from '../../state/product.actions';
+import { Product } from '../../models';
+import { State } from '../../state';
+import { getShowProductCode, getProducts, getProductsLoading } from '../../state';
+import * as ProductActions from '../../state';
+import * as CategoryActions from '../../state';
+
 import { Observable } from 'rxjs';
 
 @Component({
@@ -25,6 +27,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(ProductActions.loadProducts());
+    this.store.dispatch(CategoryActions.loadCategories());
     this.products$ = this.store.select(getProducts);
     this.loading$ = this.store.select(getProductsLoading);
     this.showCode$ = this.store.select(getShowProductCode);

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Product } from '../models';
+import { Product, Category } from '../models';
 
 export const toggleProductCode = createAction('[Product List Page] Toggle Product Code');
 

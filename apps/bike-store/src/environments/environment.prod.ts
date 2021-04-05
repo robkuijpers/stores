@@ -5,4 +5,5 @@ export const environment = {
     clientId: '${clientId}',
   },
   productServiceBaseUrl: 'http://localhost:3000/api',
+  categoryServiceBaseUrl: 'http://localhost:3000/api',
 };

@@ -1,3 +1,4 @@
+import { ErrorType } from '.';
 import * as AppState from '../../state/app.state';
 import { Product } from '../models';
 
@@ -11,11 +12,4 @@ export interface ProductState {
   products: Product[];
   loading: boolean;
   error: ErrorType;
-}
-
-export enum ErrorType {
-  LOAD,
-  ADD,
-  UPDATE,
-  DELETE,
 }

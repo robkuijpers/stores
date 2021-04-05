@@ -11,7 +11,9 @@ import { ProductListComponent } from './components';
 import { ProductDetailComponent } from './components';
 import { ConfirmationComponent } from './components';
 import { productReducer } from './state/product.reducer';
-import { ProductEffects } from './state/product.effects';
+import { categoryReducer } from './state/category.reducer';
+import { ProductEffects } from './state/';
+import { CategoryEffects } from './state';
 
 const productRoutes: Routes = [{ path: '', component: ProductPageComponent }];
 
@@ -23,7 +25,8 @@ const productRoutes: Routes = [{ path: '', component: ProductPageComponent }];
     ReactiveFormsModule,
     RouterModule.forChild(productRoutes),
     StoreModule.forFeature('products', productReducer),
-    EffectsModule.forFeature([ProductEffects]),
+    StoreModule.forFeature('categories', categoryReducer),
+    EffectsModule.forFeature([ProductEffects, CategoryEffects]),
   ],
   declarations: [ProductDetailComponent, ProductListComponent, ProductPageComponent, ConfirmationComponent],
   exports: [],

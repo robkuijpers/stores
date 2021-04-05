@@ -7,7 +7,7 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Get()
-  @Header('Cache-Control', 'none')
+  @Header('Cache-Control', 'max-age=60')
   getAll(@Query() query: any): Category[] {
     return this.categoriesService.findAll(query);
   }

@@ -2,12 +2,13 @@ import { Component, OnInit, Output, EventEmitter, TemplateRef, ViewChild, Elemen
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../../state/product.actions';
-import { getCurrentProduct, getProductError } from '../../state/product.selectors';
-import { ErrorType, State } from '../../state/product.state';
+import { getCurrentProduct, getProductError, getCategories } from '../../state';
+import { ErrorType, State } from '../../state';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Product } from '../../models';
+import { Product, Category } from '../../models';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { Observable } from 'rxjs';
 
 export interface SelectedFile {
   name: string;
@@ -21,6 +22,8 @@ export interface SelectedFile {
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
+  categories$: Observable<Category[]>;
+  categories: Category[] = [];
   product: Product;
   errorMessage: string;
   selectedFiles: SelectedFile[] = [];
@@ -32,7 +35,7 @@ export class ProductDetailComponent implements OnInit {
   productForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     code: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    category: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    category: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     rating: new FormControl(''),
     images: new FormControl(),
@@ -54,6 +57,10 @@ export class ProductDetailComponent implements OnInit {
       if (error) {
         this.errorMessage = 'Error occurred';
       }
+    });
+    this.categories$ = this._store.select(getCategories);
+    this._store.select(getCategories).subscribe((categories) => {
+      this.categories = categories;
     });
   }
 

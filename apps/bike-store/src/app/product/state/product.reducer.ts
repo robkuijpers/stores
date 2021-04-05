@@ -1,6 +1,7 @@
 import { on, createReducer } from '@ngrx/store';
-import { ProductState, ErrorType } from './product.state';
+import { ProductState } from './product.state';
 import * as ProductActions from './product.actions';
+import { ErrorType } from '.';
 
 const initialState: ProductState = {
   showProductCode: true,

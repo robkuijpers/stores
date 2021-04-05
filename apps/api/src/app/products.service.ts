@@ -7,7 +7,7 @@ export class ProductsService {
     {
       id: '0',
       name: 'Spanner',
-      category: 'tools',
+      category: '1',
       code: 'TBX-0023',
       description: 'none',
       rating: 3.7,
@@ -16,7 +16,7 @@ export class ProductsService {
     {
       id: '1',
       name: 'Hammer',
-      category: 'tools',
+      category: '1',
       code: 'TBX-0026',
       description: 'none',
       rating: 3.7,
@@ -25,7 +25,7 @@ export class ProductsService {
     {
       id: '2',
       name: 'Screw driver',
-      category: 'tools',
+      category: '1',
       code: 'TBX-0028',
       description: 'none',
       rating: 3.7,
@@ -34,7 +34,7 @@ export class ProductsService {
     {
       id: '3',
       name: 'Paint brush',
-      category: 'paint',
+      category: '2',
       code: 'TBX-0030',
       description: 'none',
       rating: 3.7,
@@ -43,7 +43,7 @@ export class ProductsService {
     {
       id: '4',
       name: 'Paint roller',
-      category: 'paint',
+      category: '2',
       code: 'TBX-0032',
       description: 'none',
       rating: 3.7,
@@ -52,7 +52,7 @@ export class ProductsService {
     {
       id: '5',
       name: 'Paint',
-      category: 'paint',
+      category: '2',
       code: 'TBX-0022',
       description: 'none',
       rating: 3.7,
@@ -61,7 +61,7 @@ export class ProductsService {
     {
       id: '6',
       name: 'Wrench',
-      category: 'tools',
+      category: '3',
       code: 'TBC-0009',
       description: 'number 12 - 13',
       rating: 4.2,
@@ -70,7 +70,7 @@ export class ProductsService {
     {
       id: '7',
       name: 'Large spanner',
-      category: 'tools',
+      category: '3',
       code: 'TBC-00200',
       description: 'Large spanner',
       rating: 3.9,
@@ -79,7 +79,7 @@ export class ProductsService {
     {
       id: '8',
       name: 'Battery loader',
-      category: 'tools',
+      category: '3',
       code: 'TBC-0350',
       description: '15 Amp/h',
       rating: 3.9,
