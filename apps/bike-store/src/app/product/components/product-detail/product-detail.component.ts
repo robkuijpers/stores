@@ -3,12 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../../state/product.actions';
 import { getCurrentProduct, getProductError } from '../../state/product.selectors';
-import { State } from '../../state/product.state';
+import { ErrorType, State } from '../../state/product.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from '../../models';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
-import { Observable } from 'rxjs';
 
 export interface SelectedFile {
   name: string;
@@ -22,16 +21,13 @@ export interface SelectedFile {
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-  errorMessage = '';
   product: Product;
-  error: string;
+  errorMessage: string;
   selectedFiles: SelectedFile[] = [];
-  currentProduct$: Observable<Product>;
 
   @Output() productChanged = new EventEmitter();
 
   @ViewChild('confirmDialog') confirmDialog: TemplateRef<any>;
-  @ViewChild('uploadFileInput') fileUploadInput: ElementRef<any>;
 
   productForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -46,44 +42,47 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.select(getCurrentProduct).subscribe((product) => {
-      this.product = product;
-      this.productForm.patchValue(product);
+      if (product) {
+        this.product = product;
+        this.selectedFiles = [];
+        this.errorMessage = null;
+        this.productForm.patchValue(product);
+        product.images.forEach((e) => this.selectedFiles.push((e as unknown) as SelectedFile));
+      }
     });
-    this._store.select(getProductError).subscribe((error) => {
-      this.error = error;
+    this._store.select(getProductError).subscribe((error: ErrorType) => {
+      if (error) {
+        this.errorMessage = 'Error occurred';
+      }
     });
-    this.currentProduct$ = this._store.select(getCurrentProduct);
   }
 
   saveProduct(): void {
+    this.productForm.patchValue({
+      images: this.selectedFiles,
+    });
     this.product.id ? this.updateProduct() : this.addProduct();
   }
 
+  zoomImage(image: SelectedFile) {}
+
   private addProduct(): void {
     this._store.dispatch(ProductActions.addProduct({ product: this.productForm.value }));
-    if (this.error === null) {
-      this._snackBar.open('Product successfully added', 'Close', { duration: 3000 });
-    }
-    this.clear();
   }
 
   private updateProduct(): void {
     this._store.dispatch(ProductActions.updateProduct({ id: this.product.id, product: this.productForm.value }));
-    if (this.error === null) {
-      this._snackBar.open('Product successfully updated', 'Close', { duration: 3000 });
-    }
-    this.clear();
+    // if (this.error === null) {
+    //   this._snackBar.open('Product successfully updated', 'Close', { duration: 3000 });
+    // }
+    // this.clear();
   }
 
   deleteProduct(): void {
-    const dialogRef = this._dialog.open(this.confirmDialog, { data: { produt: this.product } });
+    const dialogRef = this._dialog.open(this.confirmDialog, { data: { product: this.product } });
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         this._store.dispatch(ProductActions.deleteProduct({ product: this.product }));
-        if (this.error === null) {
-          this._snackBar.open('Product successfully deleted', 'Close', { duration: 3000 });
-        }
-        this.clear();
       }
     });
   }
@@ -126,5 +125,7 @@ export class ProductDetailComponent implements OnInit {
   private clear() {
     this._store.dispatch(ProductActions.clearCurrentProduct());
     this.productForm.reset();
+    this.errorMessage = null;
+    this.selectedFiles = [];
   }
 }

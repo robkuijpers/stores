@@ -10,5 +10,12 @@ export interface ProductState {
   currentProduct: Product;
   products: Product[];
   loading: boolean;
-  error: string;
+  error: ErrorType;
+}
+
+export enum ErrorType {
+  LOAD,
+  ADD,
+  UPDATE,
+  DELETE,
 }

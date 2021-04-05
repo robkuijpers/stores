@@ -1,5 +1,5 @@
 import { on, createReducer } from '@ngrx/store';
-import { ProductState } from './product.state';
+import { ProductState, ErrorType } from './product.state';
 import * as ProductActions from './product.actions';
 
 const initialState: ProductState = {
@@ -82,7 +82,7 @@ export const productReducer = createReducer<ProductState>(
         ...state,
         products: [],
         loading: false,
-        error: 'error',
+        error: ErrorType.LOAD,
       };
     },
   ),
@@ -111,7 +111,7 @@ export const productReducer = createReducer<ProductState>(
       return {
         ...state,
         loading: false,
-        error: 'error',
+        error: ErrorType.DELETE,
       };
     },
   ),
@@ -140,7 +140,7 @@ export const productReducer = createReducer<ProductState>(
       return {
         ...state,
         loading: false,
-        error: 'error',
+        error: ErrorType.ADD,
       };
     },
   ),
@@ -169,7 +169,7 @@ export const productReducer = createReducer<ProductState>(
       return {
         ...state,
         loading: false,
-        error: 'error',
+        error: ErrorType.UPDATE,
       };
     },
   ),
