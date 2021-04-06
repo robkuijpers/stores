@@ -3,7 +3,12 @@
 </div>
 
 <div class="flex-container">
-  <mat-toolbar>Bikes</mat-toolbar>
+  <form [formGroup]="searchForm" (ngSubmit)="searchProduct()" style="margin: 6px 18px 0 18px">
+    <mat-form-field style="width: 100%">
+      <input matInput formControlName="term" placeholder="Search" />
+      <mat-icon (click)="searchProduct()" matSuffix style="cursor: pointer">search</mat-icon>
+    </mat-form-field>
+  </form>
 
   <mat-selection-list [multiple]="false">
     <mat-list-option

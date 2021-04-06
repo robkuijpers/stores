@@ -12,4 +12,5 @@ export interface ProductState {
   products: Product[];
   loading: boolean;
   error: ErrorType;
+  dirty: boolean;
 }

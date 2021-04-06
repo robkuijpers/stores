@@ -1,13 +1,16 @@
-<mat-toolbar class="flex-container">
-  <span>Details</span>
-</mat-toolbar>
-
-<mat-card style="max-width: 500px; min-width: 500px; margin: 24px" *ngIf="errorMessage">
-  <mat-card-content color="warn">{{ errorMessage }}</mat-card-content>
+<mat-card
+  style="max-width: 500px; min-width: 500px; margin: 24px; background-color: #f44336; color: white"
+  *ngIf="errorMessage"
+>
+  <mat-card-content>{{ errorMessage }}</mat-card-content>
 </mat-card>
 
 <mat-card style="max-width: 500px; min-width: 500px; margin: 24px" *ngIf="product">
-  <mat-card-header></mat-card-header>
+  <mat-toolbar style="display: flex">
+    <span>Details</span>
+    <span *ngIf="formDirty$ | async">*</span>
+    <span *ngIf="loading$ | async"><mat-spinner></mat-spinner></span>
+  </mat-toolbar>
   <mat-card-content>
     <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
       <div>
@@ -86,7 +89,12 @@
         </mat-list-item>
       </mat-list>
     </div>
-    <button mat-raised-button color="warn" (click)="saveProduct()" [disabled]="!product || !productForm.valid">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="saveProduct()"
+      [disabled]="!product || !productForm.valid || !productForm.dirty"
+    >
       Save
     </button>
     <button

@@ -5,7 +5,7 @@ const getProductFeatureState = createFeatureSelector<ProductState>('products');
 
 export const getShowProductCode = createSelector(getProductFeatureState, (state) => state.showProductCode);
 
-export const getProductsLoading = createSelector(getProductFeatureState, (state) => state.loading);
+export const getHttpRequestPending = createSelector(getProductFeatureState, (state) => state.loading);
 
 export const getCurrentProduct = createSelector(getProductFeatureState, (state) => state.currentProduct);
 

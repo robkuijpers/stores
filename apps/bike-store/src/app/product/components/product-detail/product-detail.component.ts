@@ -2,13 +2,14 @@ import { Component, OnInit, Output, EventEmitter, TemplateRef, ViewChild, Elemen
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../../state/product.actions';
-import { getCurrentProduct, getProductError, getCategories } from '../../state';
+import { getCurrentProduct, getProductError, getCategories, getHttpRequestPending } from '../../state';
 import { ErrorType, State } from '../../state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product, Category } from '../../models';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface SelectedFile {
   name: string;
@@ -23,10 +24,11 @@ export interface SelectedFile {
 })
 export class ProductDetailComponent implements OnInit {
   categories$: Observable<Category[]>;
-  categories: Category[] = [];
+  loading$: Observable<boolean>;
   product: Product;
   errorMessage: string;
   selectedFiles: SelectedFile[] = [];
+  formDirty$: Subject<boolean>;
 
   @Output() productChanged = new EventEmitter();
 
@@ -41,9 +43,18 @@ export class ProductDetailComponent implements OnInit {
     images: new FormControl(),
   });
 
-  constructor(private _store: Store<State>, private _snackBar: MatSnackBar, private _dialog: MatDialog) {}
+  constructor(
+    private _store: Store<State>,
+    private _snackBar: MatSnackBar,
+    private _dialog: MatDialog,
+    private store: Store<State>,
+  ) {}
 
   ngOnInit(): void {
+    this.formDirty$ = new Subject<boolean>();
+    this.formDirty$.next(true);
+
+    this.loading$ = this.store.select(getHttpRequestPending);
     this._store.select(getCurrentProduct).subscribe((product) => {
       if (product) {
         this.product = product;
@@ -55,13 +66,13 @@ export class ProductDetailComponent implements OnInit {
     });
     this._store.select(getProductError).subscribe((error: ErrorType) => {
       if (error) {
-        this.errorMessage = 'Error occurred';
+        this.showError(error);
       }
     });
     this.categories$ = this._store.select(getCategories);
-    this._store.select(getCategories).subscribe((categories) => {
-      this.categories = categories;
-    });
+    this.productForm.valueChanges
+      .pipe(map(() => this.productForm.dirty && this.productForm.enabled))
+      .subscribe((dirty) => this.formDirty$.next(dirty));
   }
 
   saveProduct(): void {
@@ -128,6 +139,27 @@ export class ProductDetailComponent implements OnInit {
       reader.readAsDataURL(file);
     });
   };
+
+  private showError(error: ErrorType) {
+    switch (error) {
+      case ErrorType.ADD: {
+        this.errorMessage = 'Error occurred while adding product';
+        break;
+      }
+      case ErrorType.UPDATE: {
+        this.errorMessage = 'Error occurred while updating product';
+        break;
+      }
+      case ErrorType.DELETE: {
+        this.errorMessage = 'Error occurred while deleting product';
+        break;
+      }
+      default: {
+        this.errorMessage = '';
+        break;
+      }
+    }
+  }
 
   private clear() {
     this._store.dispatch(ProductActions.clearCurrentProduct());

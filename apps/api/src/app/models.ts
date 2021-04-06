@@ -1,3 +1,9 @@
+export interface Image {
+  name: string;
+  type: string;
+  size: number;
+  base64: string;
+}
 export interface Product {
   id?: string;
   name?: string;
@@ -5,7 +11,7 @@ export interface Product {
   category?: string;
   description?: string;
   rating?: number;
-  images?: string[];
+  images?: Image[];
 }
 export interface Category {
   id: string;

@@ -9,6 +9,7 @@ const initialState: ProductState = {
   products: [],
   loading: false,
   error: null,
+  dirty: false,
 };
 
 // pure function: same input = same output with no side effects
@@ -171,6 +172,24 @@ export const productReducer = createReducer<ProductState>(
         ...state,
         loading: false,
         error: ErrorType.UPDATE,
+      };
+    },
+  ),
+  on(
+    ProductActions.setFormDirty,
+    (state): ProductState => {
+      return {
+        ...state,
+        dirty: true,
+      };
+    },
+  ),
+  on(
+    ProductActions.clearFormDirty,
+    (state): ProductState => {
+      return {
+        ...state,
+        dirty: false,
       };
     },
   ),
