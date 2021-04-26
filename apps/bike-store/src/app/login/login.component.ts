@@ -2,13 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { slideInOutAnimation } from '../animations';
-import { AuthService } from '../auth/auth.service';
+//import { AuthService } from '../auth/auth.service';
+//import { AuthService } from '../../../../../libs/auth/src/lib/auth.service';
+import { AuthService } from '@stores/auth';
+import * as oktaConfig from '../okta.config';
 
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  providers: [{ provide: 'oktaOptions', useValue: oktaConfig }],
   animations: [slideInOutAnimation],
-  //  host: { '[@slideInOutAnimation]': '' }
 })
 export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup;

@@ -1,14 +1,9 @@
 {
   "npmScope": "stores",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -17,34 +12,17 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e", "build-storybook"]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e", "build-storybook"] }
     }
   },
   "projects": {
-    "bike-store": {
-      "tags": []
-    },
-    "bike-store-e2e": {
-      "tags": [],
-      "implicitDependencies": ["bike-store"]
-    },
-    "header": {
-      "tags": []
-    },
-    "header-e2e": {
-      "tags": [],
-      "implicitDependencies": ["header"]
-    },
-    "material": {
-      "tags": []
-    },
-    "api": {
-      "tags": []
-    },
-    "core": {
-      "tags": []
-    }
+    "bike-store": { "tags": [] },
+    "bike-store-e2e": { "tags": [], "implicitDependencies": ["bike-store"] },
+    "header": { "tags": [] },
+    "header-e2e": { "tags": [], "implicitDependencies": ["header"] },
+    "material": { "tags": [] },
+    "api": { "tags": [] },
+    "core": { "tags": [] },
+    "auth": { "tags": [] }
   }
 }

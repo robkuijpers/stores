@@ -18,7 +18,8 @@
     "paths": {
       "@stores/header": ["libs/header/src/index.ts"],
       "@stores/material": ["libs/material/src/index.ts"],
-      "@stores/core": ["libs/core/src/index.ts"]
+      "@stores/core": ["libs/core/src/index.ts"],
+      "@stores/auth": ["libs/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

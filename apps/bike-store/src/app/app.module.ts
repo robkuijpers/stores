@@ -12,6 +12,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { HeaderModule } from '@stores/header';
+import { AuthModule } from '@stores/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome';
@@ -56,6 +57,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ),
     EffectsModule.forRoot([]),
     HeaderModule,
+    AuthModule,
     OktaAuthModule,
     AppRoutingModule,
     !environment.production
@@ -66,7 +68,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         })
       : [],
   ],
-  declarations: [AppComponent, WelcomeComponent, LoginComponent, PageNotFoundComponent],
+  declarations: [AppComponent, LoginComponent, PageNotFoundComponent, WelcomeComponent],
   exports: [],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent],

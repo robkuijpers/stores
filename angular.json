@@ -75,14 +75,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "apps/bike-store/tsconfig.app.json",
-              "apps/bike-store/tsconfig.spec.json",
-              "apps/bike-store/tsconfig.editor.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/bike-store/**/*"]
+            "lintFilePatterns": ["apps/bike-store/**/*.ts", "apps/bike-store/**/*.html"]
           }
         },
         "test": {
@@ -113,10 +108,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["apps/bike-store-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/bike-store-e2e/**/*"]
+            "lintFilePatterns": ["apps/bike-store-e2e/**/*.ts", "apps/bike-store-e2e/**/*.html"]
           }
         }
       }
@@ -128,14 +122,9 @@
       "prefix": "stores",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/header/tsconfig.lib.json",
-              "libs/header/tsconfig.spec.json",
-              "libs/header/.storybook/tsconfig.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/header/**/*"]
+            "lintFilePatterns": ["libs/header/**/*.ts", "libs/header/**/*.html"]
           }
         },
         "test": {
@@ -201,10 +190,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["apps/header-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/header-e2e/**/*"]
+            "lintFilePatterns": ["apps/header-e2e/**/*.ts", "apps/header-e2e/**/*.html"]
           }
         }
       }
@@ -216,10 +204,9 @@
       "prefix": "stores",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["libs/material/tsconfig.lib.json", "libs/material/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/material/**/*"]
+            "lintFilePatterns": ["libs/material/**/*.ts", "libs/material/**/*.html"]
           }
         },
         "test": {
@@ -272,10 +259,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["apps/api/tsconfig.app.json", "apps/api/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
+            "lintFilePatterns": ["apps/api/**/*.ts", "apps/api/**/*.html"]
           }
         },
         "test": {
@@ -294,10 +280,9 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["libs/core/tsconfig.lib.json", "libs/core/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/core/**/*"]
+            "lintFilePatterns": ["libs/core/**/*.ts", "libs/core/**/*.html"]
           }
         },
         "test": {
@@ -308,10 +293,32 @@
           }
         }
       }
+    },
+    "auth": {
+      "projectType": "library",
+      "root": "libs/auth",
+      "sourceRoot": "libs/auth/src",
+      "prefix": "stores",
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["libs/auth/**/*.ts", "libs/auth/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth"],
+          "options": {
+            "jestConfig": "libs/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@angular-eslint/schematics"
   },
   "schematics": {
     "@nrwl/workspace": {
@@ -349,11 +356,18 @@
       }
     },
     "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
     "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
       "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
   },
   "defaultProject": "bike-store"

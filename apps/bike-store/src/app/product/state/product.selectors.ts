@@ -12,3 +12,5 @@ export const getCurrentProduct = createSelector(getProductFeatureState, (state) 
 export const getProducts = createSelector(getProductFeatureState, (state) => state.products);
 
 export const getProductError = createSelector(getProductFeatureState, (state) => state.error);
+
+export const getFormDirty = createSelector(getProductFeatureState, (state) => state.dirty);

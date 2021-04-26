@@ -1,21 +1,21 @@
 <mat-toolbar color="primary">
   <span>
-    <button *ngIf="isAuthenticated" mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <button *ngIf="this.isAuth | async" mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
       <mat-icon>menu</mat-icon>
     </button>
   </span>
   <span>
-    <button mat-button routerLink="/">{{ 'header.title' | translate }}</button>
+    <button mat-button routerLink="/" data-test="header-title">{{ 'header.title' | translate }}</button>
   </span>
   <span class="spacer"></span>
   <span>
-    <button mat-button [routerLink]="['/login']" *ngIf="!isAuthenticated">
+    <button mat-button [routerLink]="['/login']" *ngIf="!(this.isAuth | async)">
       <mat-icon>power_settings_new</mat-icon>
       {{ 'header.login' | translate }}
     </button>
   </span>
   <span>
-    <button mat-button *ngIf="isAuthenticated" (click)="logout()">
+    <button mat-button *ngIf="this.isAuth | async" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       {{ 'header.logout' | translate }}
     </button>
@@ -27,11 +27,11 @@
     <mat-icon>home</mat-icon>
     {{ 'header.home' | translate }}
   </button>
-  <button mat-menu-item *ngIf="isAuthenticated" [routerLink]="['/product']">
+  <button mat-menu-item *ngIf="this.isAuth | async" [routerLink]="['/product']">
     <mat-icon>shopping_cart</mat-icon>
     {{ 'header.products' | translate }}
   </button>
-  <button mat-menu-item *ngIf="isAuthenticated" (click)="logout()">
+  <button mat-menu-item *ngIf="this.isAuth | async" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
     {{ 'header.logout' | translate }}
   </button>

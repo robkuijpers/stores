@@ -2,13 +2,13 @@ import { Component, OnInit, Output, EventEmitter, TemplateRef, ViewChild, Elemen
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../../state/product.actions';
-import { getCurrentProduct, getProductError, getCategories, getHttpRequestPending } from '../../state';
+import { getCurrentProduct, getProductError, getCategories, getHttpRequestPending, getFormDirty } from '../../state';
 import { ErrorType, State } from '../../state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product, Category } from '../../models';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export interface SelectedFile {
@@ -25,14 +25,10 @@ export interface SelectedFile {
 export class ProductDetailComponent implements OnInit {
   categories$: Observable<Category[]>;
   loading$: Observable<boolean>;
+  formDirty$: Observable<boolean>;
   product: Product;
   errorMessage: string;
   selectedFiles: SelectedFile[] = [];
-  formDirty$: Subject<boolean>;
-
-  @Output() productChanged = new EventEmitter();
-
-  @ViewChild('confirmDialog') confirmDialog: TemplateRef<any>;
 
   productForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -43,24 +39,22 @@ export class ProductDetailComponent implements OnInit {
     images: new FormControl(),
   });
 
-  constructor(
-    private _store: Store<State>,
-    private _snackBar: MatSnackBar,
-    private _dialog: MatDialog,
-    private store: Store<State>,
-  ) {}
+  @Output() productChanged = new EventEmitter();
+
+  @ViewChild('confirmDialog') confirmDialog: TemplateRef<any>;
+
+  constructor(private _store: Store<State>, private _snackBar: MatSnackBar, private _dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.formDirty$ = new Subject<boolean>();
-    this.formDirty$.next(true);
-
-    this.loading$ = this.store.select(getHttpRequestPending);
+    this.formDirty$ = this._store.select(getFormDirty);
+    this.loading$ = this._store.select(getHttpRequestPending);
     this._store.select(getCurrentProduct).subscribe((product) => {
       if (product) {
         this.product = product;
         this.selectedFiles = [];
         this.errorMessage = null;
         this.productForm.patchValue(product);
+        this._store.dispatch(ProductActions.clearFormDirty());
         product.images.forEach((e) => this.selectedFiles.push((e as unknown) as SelectedFile));
       }
     });
@@ -71,8 +65,16 @@ export class ProductDetailComponent implements OnInit {
     });
     this.categories$ = this._store.select(getCategories);
     this.productForm.valueChanges
-      .pipe(map(() => this.productForm.dirty && this.productForm.enabled))
-      .subscribe((dirty) => this.formDirty$.next(dirty));
+      .pipe(
+        map(() => {
+          return this.productForm.dirty && this.productForm.enabled;
+        }),
+      )
+      .subscribe((dirty) => {
+        if (dirty) {
+          this._store.dispatch(ProductActions.setFormDirty());
+        }
+      });
   }
 
   saveProduct(): void {

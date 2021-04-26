@@ -20,6 +20,10 @@ mat-list {
   flex-grow: 1;
 }
 
+mat-selection-list {
+  flex: 1;
+}
+
 mat-list-item {
   cursor: pointer;
   &:hover {

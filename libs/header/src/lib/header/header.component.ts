@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from 'apps/bike-store/src/app/auth/auth.service';
+import { AuthService } from '@stores/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'stores-header',
@@ -9,15 +8,15 @@ import { AuthService } from 'apps/bike-store/src/app/auth/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  isAuthenticated = false;
+  isAuth: Observable<boolean>;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.isAuthenticated.subscribe((isAuthenticated: boolean) => (this.isAuthenticated = isAuthenticated));
+    this.isAuth = this.authService.isAuthenticated$.asObservable();
   }
 
-  logout(): void {
-    this.authService.logout('/');
+  async logout(): Promise<void> {
+    await this.authService.logout('/');
   }
 }

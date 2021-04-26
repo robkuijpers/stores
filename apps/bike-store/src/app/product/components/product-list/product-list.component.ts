@@ -29,14 +29,14 @@ export class ProductListComponent implements OnInit {
 
   @ViewChildren('mat-list-item') items: QueryList<any>;
 
-  constructor(private store: Store<State>) {}
+  constructor(private _store: Store<State>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(ProductActions.loadProducts());
-    this.store.dispatch(CategoryActions.loadCategories());
-    this.products$ = this.store.select(getProducts);
-    this.loading$ = this.store.select(getHttpRequestPending);
-    this.showCode$ = this.store.select(getShowProductCode);
+    this._store.dispatch(ProductActions.loadProducts());
+    this._store.dispatch(CategoryActions.loadCategories());
+    this.products$ = this._store.select(getProducts);
+    this.loading$ = this._store.select(getHttpRequestPending);
+    this.showCode$ = this._store.select(getShowProductCode);
     this.searchForm
       .get('term')
       .valueChanges.pipe(debounceTime(500))
@@ -48,22 +48,22 @@ export class ProductListComponent implements OnInit {
   }
 
   newProduct(): void {
-    this.store.dispatch(ProductActions.initCurrentProduct());
+    this._store.dispatch(ProductActions.initCurrentProduct());
   }
 
   selectProduct(product: Product): void {
     this.selectedProduct = product;
-    this.store.dispatch(ProductActions.setCurrentProduct({ product }));
+    this._store.dispatch(ProductActions.setCurrentProduct({ product }));
   }
 
   searchProduct() {
     const term = this.searchForm.get('term').value;
     if (term.length > 2) {
-      this.store.dispatch(ProductActions.searchProduct({ term: term }));
+      this._store.dispatch(ProductActions.searchProduct({ term: term }));
     }
   }
 
   toggleCode(): void {
-    this.store.dispatch(ProductActions.toggleProductCode());
+    this._store.dispatch(ProductActions.toggleProductCode());
   }
 }

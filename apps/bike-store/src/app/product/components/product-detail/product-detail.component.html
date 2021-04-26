@@ -9,7 +9,7 @@
   <mat-toolbar style="display: flex">
     <span>Details</span>
     <span *ngIf="formDirty$ | async">*</span>
-    <span *ngIf="loading$ | async"><mat-spinner></mat-spinner></span>
+    <span *ngIf="loading$ | async" style="width: 12px; height: 12px"><mat-spinner></mat-spinner></span>
   </mat-toolbar>
   <mat-card-content>
     <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
